@@ -1,0 +1,20 @@
+<div class="contact-info">
+  <div>
+    <span [@state]="states.email">contact</span><span [@state]="states.social">@</span><span [@state]="states.name">maciejtreder</span><span [@state]="states.tld">.com</span>
+  </div>
+  <div [@state]="states.phoneNumber" id="phone">
+    +48 797 711 655
+  </div>
+</div>
+
+<div class="social">
+    <a (mouseover)="animate('social')" href="https://twitter.com/maciejtreder" onclick="trackOutboundLink('https://twitter.com/maciejtreder');" rel="noopener" target="_blank" class="twitter"></a>
+    <a (mouseover)="animate('social')" href="https://stackoverflow.com/users/2849613/maciej-treder" onclick="trackOutboundLink('https://stackoverflow.com/users/2849613/maciej-treder');" rel="noopener" target="_blank" class="stackoverflow"></a>
+    <a (mouseover)="animate('social')" href="https://www.linkedin.com/in/maciej-treder" onclick="trackOutboundLink('https://www.linkedin.com/in/maciej-treder');" rel="nopener" target="_blank" class="linkedin"></a>
+    <a (mouseover)="animate('social')" href="https://www.npmjs.com/~maciejtreder" onclick="trackOutboundLink('https://www.npmjs.com/~maciejtreder');" rel="nopener" target="_blank" class="npm"></a>
+    <a (mouseover)="animate('social')" href="https://github.com/maciejtreder" onclick="trackOutboundLink('https://github.com/maciejtreder');" rel="noopener" target="_blank" class="github"></a>
+    <a (mouseover)="animate('social')" href="https://gitlab.com/maciejtreder" onclick="trackOutboundLink('https://gitlab.com/maciejtreder');" rel="noopener" target="_blank" class="gitlab"></a>
+    <a (mouseover)="animate('email')" href="mailto: contact@maciejtreder.com" onclick="trackOutboundLink('mailto: contact@maciejtreder.com');" class="mail"></a>
+    <a (mouseover)="animate('social')" href="skype:live:maciejtreder?call" onclick="trackOutboundLink('skype:live:maciejtreder?call');" class="skype"></a>
+    <a (mouseover)="animate('phone')" href="tel:+48797711655" onclick="trackOutboundLink('tel:+48797711655');" class="phone"></a>
+</div>
