@@ -1,1 +1,9 @@
-<p>writing works!</p>
+
+<div class="entry" *ngFor="let post of (posts | async)">
+    <a [href]="post.url">
+        <div class="date">{{post.date | date}} | for {{post.for}}</div>
+        <div class="title">{{post.title}}</div>
+        <div class="description" [innerHtml]="post.description"></div>
+    </a>
+    <div class="keywords"><span *ngFor="let keyword of post.keywords">#{{keyword}}</span></div>    
+</div>

@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-speaking',
   templateUrl: './speaking.component.html',
-  styleUrls: ['./speaking.component.scss']
+  styleUrls: ['../../component.scss','./speaking.component.scss']
 })
 export class SpeakingComponent implements OnInit {
 

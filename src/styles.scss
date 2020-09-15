@@ -3,7 +3,6 @@
 html, body {
     height: 100%;
     margin: 0;
-    color: #555555;
     font-weight: 300;
     font-family: 'Source Sans Pro', calibri, Arial, sans-serif;
 }
@@ -16,17 +15,25 @@ body {
     flex-direction: column;
 }
 
+body, a {
+    color: #777777;
+}
+
 
 a:hover, button:hover {
-    text-decoration: none;
+    color: #111111;
 }
 
 a {
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 #content-wrapper {
     display: flex;
     flex-direction: column;
     flex: 1;
-  }
+}
+
+p{
+    margin-bottom: 1em;
+}

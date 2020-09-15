@@ -1,1 +1,9 @@
-<p>header works!</p>
+<div *ngIf="displayTitle" class="title">
+    <h1><strong>maciej</strong>treder</h1>
+    <h2>{{title | async}}</h2>
+</div>
+<div class="navigation" *ngIf="!displayTitle || (title | async) != 'home'">
+    <a routerLink="speaking">speaking</a>
+    <a routerLink="writing">writing</a>
+    <a routerLink="teaching">teaching</a>
+</div>
