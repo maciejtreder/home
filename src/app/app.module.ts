@@ -9,6 +9,7 @@ import { FooterComponent } from './footer/footer.component';
 import { WritingComponent } from './writing/writing.component';
 import { SpeakingComponent } from './speaking/speaking.component';
 import { TeachingComponent } from './teaching/teaching.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { TeachingComponent } from './teaching/teaching.component';
     FooterComponent,
     WritingComponent,
     SpeakingComponent,
-    TeachingComponent
+    TeachingComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

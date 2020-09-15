@@ -1,11 +1,11 @@
 @import "reset";
-@import "credentials";
-
 
 html, body {
     height: 100%;
     margin: 0;
     color: #555555;
+    font-weight: 300;
+    font-family: 'Source Sans Pro', calibri, Arial, sans-serif;
 }
 
 body {
@@ -16,16 +16,17 @@ body {
     flex-direction: column;
 }
 
-*:not(.material-icons) {
-    font-weight: 300 !important;
-    font-family: 'Source Sans Pro', calibri, Arial, sans-serif !important;
-}
 
 a:hover, button:hover {
     text-decoration: none;
 }
 
 a {
-    color: #aaaaaa;
     text-decoration: underline;
 }
+
+#content-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
