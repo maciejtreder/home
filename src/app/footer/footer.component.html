@@ -1,0 +1,30 @@
+<div class="contact-info">
+    <div>Reach me via&nbsp;</div>
+    <div>
+        <span [@state]="states.twitter">Twitter: @maciejtreder</span>
+        <span [@state]="states.stackoverflow">StackOverflow: @maciejtreder</span>
+        <span [@state]="states.linkedin">LinkedIn: @maciejtreder</span>
+        <span [@state]="states.npm">NPM: @maciejtreder</span>
+        <span [@state]="states.github">GitHub: @maciejtreder</span>
+        <span [@state]="states.gitlab">GitLab: @maciejtreder</span>
+        <span [@state]="states.email">Email: contact@maciejtreder</span>
+        <span [@state]="states.skype">Skype: @maciejtreder</span>
+        <span [@state]="states.phone">Phone: +1 646-397-4810</span>
+
+    </div>
+  </div>
+  
+  <!-- onclick="trackOutboundLink('https://twitter.com/maciejtreder');" -->
+  <div class="social" >
+      <a (mouseover)="animate('twitter')" name="twitter" href="https://twitter.com/maciejtreder" (click)=handleClick($event) rel="noopener" target="_blank" class="twitter"></a>
+      <a (mouseover)="animate('stackoverflow')" name="stackoverflow" href="https://stackoverflow.com/users/2849613/maciej-treder" (click)=handleClick($event) rel="noopener" target="_blank" class="stackoverflow"></a>
+      <a (mouseover)="animate('linkedin')" name="linkedin" href="https://www.linkedin.com/in/maciej-treder" (click)=handleClick($event) rel="nopener" target="_blank" class="linkedin"></a>
+      <a (mouseover)="animate('npm')" name="npm" href="https://www.npmjs.com/~maciejtreder" (click)=handleClick($event) rel="nopener" target="_blank" class="npm"></a>
+      <a (mouseover)="animate('github')" name="github" href="https://github.com/maciejtreder" (click)=handleClick($event) rel="noopener" target="_blank" class="github"></a>
+      <a (mouseover)="animate('gitlab')" name="gitlab" href="https://gitlab.com/maciejtreder" (click)=handleClick($event) rel="noopener" target="_blank" class="gitlab"></a>
+      <a (mouseover)="animate('email')" name="email" href="mailto: contact@maciejtreder.com" (click)=handleClick($event) class="mail"></a>
+      <a (mouseover)="animate('skype')" name="skype" href="skype:live:maciejtreder?call" (click)=handleClick($event) class="skype"></a>
+      <a (mouseover)="animate('phone')" name="phone" href="tel:+16463974810" (click)=handleClick($event) class="phone"></a>
+  </div>
+
+  <div class="instructions">click to freeze; double-click to follow</div>

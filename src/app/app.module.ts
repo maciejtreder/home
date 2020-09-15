@@ -5,11 +5,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
+import { FooterComponent } from './footer/footer.component';
+import { WritingComponent } from './writing/writing.component';
+import { SpeakingComponent } from './speaking/speaking.component';
+import { TeachingComponent } from './teaching/teaching.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    FooterComponent,
+    WritingComponent,
+    SpeakingComponent,
+    TeachingComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
