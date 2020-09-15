@@ -1,0 +1,18 @@
+[
+    {
+        "title": "Asynchronous JavaScript: Choosing the Right Asynchronous Tool",
+        "description": "<p>Since its beginning as a primitive, unstandardized scripting language for web browsers, JavaScript has gained many features that better equip it for handling common programming tasks. Some of the most important improvements are in the area of handling asynchronous events like form submission, user interface interaction, and media management.</p><p>The growth of server-side JavaScript enabled by Node.js has substantially expanded the range of project types and business challenges JavaScript can successfully address, adding new requirements for asynchronous processing. The popularity of web services as a design paradigm and REST APIs as an interaction standard have both added to the scope of asynchronous tasks for the language.</p><p>The Node package management system, npm, makes it possible to easily integrate capabilities provided in open source libraries. Packages for asynchronous tasks have been some of the most successful of these, adding programming paradigms to JavaScript that were unimagined in the early days of …</p>",
+        "url": "https://www.twilio.com/blog/asynchronous-javascript-choosing-the-right-asynchronous-tool",
+        "date": 1598486400,
+        "keywords": ["javascript", "nodejs"],
+        "for": "Twilio"
+    },
+    {
+        "title": "Asynchronous JavaScript: Using Promises With REST APIs in Node.js",
+        "description": "<p>In JavaScript, like many programming languages, asynchronous processing can be used to handle tasks that take a long time to run or are potentially unresponsive. The JavaScript Promise object provides a way of monitoring their state and serves as a placeholder and container for the data they’ll eventually return — or not.</p><p>Often it doesn’t matter when a Promise returns data and the members of a collection of Promises can be resolved independently without regard to timing. A function can perform asynchronous tasks that don’t depend on the data from, or the success of, other asynchronous tasks.</p><p>But sometimes business rules or program design require that asynchronous actions are dependent on other asynchronous operations. For example...</p>",
+        "url": "https://www.twilio.com/blog/asynchronous-javascript-using-promises-rest-apis-nodejs",
+        "date": 1596067200,
+        "keywords": ["javascript", "nodejs"],
+        "for": "Twilio"
+    }
+]
