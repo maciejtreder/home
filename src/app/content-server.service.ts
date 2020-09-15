@@ -12,7 +12,7 @@ import { ContentService } from './content.service';
 })
 export class ContentServerService extends ContentService {
 
-  constructor(private ts: TransferState) {
+  constructor(private tss: TransferState) {
     super(null, null)
   }
 
@@ -24,7 +24,7 @@ export class ContentServerService extends ContentService {
       });
     }).pipe(
       map((posts: Post[]) => this.convertDate(posts)),
-      tap(value => this.ts.set(StateKeys.POSTS, value))
+      tap(value => this.tss.set(StateKeys.POSTS, value))
     );
   }
 }
