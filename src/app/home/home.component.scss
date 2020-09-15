@@ -1,3 +1,10 @@
 :host ::ng-deep .navigation a {
     font-size: 50px !important;
 }
+
+@media only screen and (max-width: 600px) {
+    :host ::ng-deep .navigation {
+        flex-direction: column;
+        display: flex;
+    }
+}
