@@ -3,7 +3,7 @@
     
 </div>
 <!-- *ngIf="!displayTitle || ['speaking', 'writing', 'teaching'].includes((title | async))" -->
-<div class="navigation" >
+<div class="navigation" *ngIf="displayMenu">
     <!-- {{title | async}} -->
     <!-- <h2 [innerHtml]="title | async">{{title | async}}</h2> -->
     <a routerLink="speaking" routerLinkActive="active">speaking</a>

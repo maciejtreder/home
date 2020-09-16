@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'portfolio';
+  public displayMenu: Observable<boolean> = this.router.events.pipe(
+    filter(event => event instanceof NavigationEnd),
+    map((event: NavigationEnd) => event.urlAfterRedirects),
+    map(url => url != '/'),
+    distinctUntilChanged()
+  );
+
+  constructor(private router: Router){}
 }
