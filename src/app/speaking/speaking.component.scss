@@ -1,12 +1,14 @@
 img {
+    margin-top: -67px;
+    float: right;
     width: 400px;
     box-shadow: 1px 1px 10px #cccccc;
     margin-left: 10px;
 }
 
-.entry {
-    display: flex;
-}
+// .entry {
+//     display: flex;
+// }
 .about {
     padding-top: 0.8em;
 }
@@ -21,5 +23,30 @@ a {
     display: block;
 }
 
-@media only screen and (max-width: 600px) {
+.header {
+    padding-right: 415px;
+}
+
+@media only screen and (max-width: 800px) {
+    img {
+        float: none;
+        margin: 10px auto;
+        display: flex;
+    }
+    
+    .header {
+        padding-right: 0;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    img {
+        width: 300px;
+    }
+}
+
+@media only screen and (max-width: 300px) {
+    img {
+        width: 250px;
+    }
 }

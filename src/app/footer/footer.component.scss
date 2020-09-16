@@ -25,6 +25,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
 
     a {
         width: 50px;
@@ -69,4 +70,24 @@
 
 .npm {
     background: url('../../assets/img/npm_hover.png') no-repeat center;
+}
+
+@media only screen and (max-width: 450px) {
+    :host, .social, .contact-info {
+        width: 350px;
+    }
+}
+
+@media only screen and (max-width: 350px) {
+    :host, .social, .contact-info {
+        width: 300px;
+        flex-wrap: wrap;
+    }
+}
+
+@media only screen and (max-width: 300px) {
+    :host, .social, .contact-info {
+        width: 280px;
+        flex-wrap: wrap;
+    }
 }

@@ -14,11 +14,7 @@ h1, h2 {
 }
 
 h1 {
-    font-size: 25px;
-}
-
-h2 {
-    font-size: 40px;
+    font-size: 1.5em;
 }
 
 .navigation {
@@ -45,3 +41,14 @@ h2 {
     }
 }
 
+@media only screen and (max-width: 330px) {
+    .navigation {
+        a {
+            font-size: 1.2em;
+        }
+
+        a.active {
+            font-size: 1.5em;
+        }
+    }
+}
