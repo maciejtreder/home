@@ -1,7 +1,7 @@
 [
     {
         "title": "Asynchronous JavaScript: Choosing the Right Asynchronous Tool",
-        "description": "<p>Since its beginning as a primitive, unstandardized scripting language for web browsers, JavaScript has gained many features that better equip it for handling common programming tasks. Some of the most important improvements are in the area of handling asynchronous events like form submission, user interface interaction, and media management.</p><p>The growth of server-side JavaScript enabled by Node.js has substantially expanded the range of project types and business challenges JavaScript can successfully address, adding new requirements for asynchronous processing. The popularity of web services as a design paradigm and REST APIs as an interaction standard have both added to the scope of asynchronous tasks for the language.</p><p>The Node package management system, npm, makes it possible to easily integrate capabilities provided in open source libraries. Packages for asynchronous tasks have been some of the most successful of these, adding programming paradigms to JavaScript that were unimagined in the early days of …</p>",
+        "description": "<p>Since its beginning as a primitive, unstandardized scripting language for web browsers, JavaScript has gained many features that better equip it for handling common programming tasks. Some of the most important improvements are in the area of handling asynchronous events like form submission, user interface interaction, and media management.</p><p>The growth of server-side JavaScript enabled by Node.js has substantially expanded the range of project types and business challenges JavaScript can successfully address, adding new requirements for asynchronous processing. The popularity of web services as a design paradigm and REST APIs as an interaction standard have both added to the scope of asynchronous tasks for the language.</p><p>The Node package management system, npm, makes it possible to easily integrate capabilities provided in open source libraries. Packages for asynchronous tasks have been some of the most successful of these, adding programming paradigms to JavaScript that were unimagined in the early days of...</p>",
         "url": "https://www.twilio.com/blog/asynchronous-javascript-choosing-the-right-asynchronous-tool",
         "date": 1598486400,
         "keywords": ["javascript", "nodejs"],
@@ -14,5 +14,214 @@
         "date": 1596067200,
         "keywords": ["javascript", "nodejs"],
         "for": "Twilio"
+    },
+    {
+        "title": "Asynchronous JavaScript: Introducing async and await",
+        "description": "<p>Asynchronous processing is one of the most important aspects of the JavaScript language. JavaScript is a single-threaded language, so it needs a mechanism to deal with the actions like performing time-intensive and potentially unreliable activities like making REST API calls, reading files from the disk, or interacting with user input.</p><p>In JavaScript the mechanism used is an event loop, which processes a callback queue in order from oldest item to newest. Each item in the queue is a message that’s processed completely before moving on to the next next message. Each message is a function that returns a response to code elsewhere in the application. Functions used in this way are called callback functions.</p><p>Because of callbacks, JavaScript can use a number of techniques for getting around its single-threaded nature to implement asynchronous processing. Unfortunately, some of those techniques, JavaScript Promises and RxJS Observables, force you to introduce at...</p>",
+        "url": "https://www.twilio.com/blog/asynchronous-javascript-introducing-async-and-await",
+        "date": 1593561600,
+        "keywords": ["javascript", "nodejs"],
+        "for": "Twilio"
+    },
+    {
+        "title": "Tracking the ISS with Real-Time Event Notifications Using Node.js, RxJS Observables, and Twilio Programmable SMS",
+        "description": "<p>Are you a developer looking for a new hobby that’s compatible with sheltering in place? Would you like to be able to share it with friends from a virus-safe distance?</p><p>You can stargaze from the safety of your own lawn, balcony, or roof, and you don’t need any equipment other than your own eyes, and maybe a pair of binoculars. There are plenty of bright objects in the night sky that are visible with the naked eye. One of them is the International Space Station (ISS), which is the third brightest object in the sky after the sun and moon.</p><p>The ISS whips around the earth at 27,576 kilometers per hour (17,000 miles per hour), making a complete orbit every 94 minutes. Opportunities to observe it only last a few minutes, so it’s helpful to know when the ISS will be visible and from which direction it will appear.</p>",
+        "url": "https://www.twilio.com/blog/real-time-event-notifications-using-node-js-rxjs-observables-twilio-programmable-sms",
+        "date": 1590105600,
+        "keywords": ["javascript", "nodejs", "rxjs"],
+        "for": "Twilio"
+    },
+    {
+        "title": "Confirming SMS Message Delivery with RxJS Observables, Node.js, and Twilio Programmable SMS",
+        "description": "<p>SMS messages can reach over 4.5 billion text-enabled devices to notify people about upcoming appointments, emergencies, traffic disruptions, or commercial promotions. Sending SMS messages programmatically enables you to reach many people almost simultaneously. With Twilio Programmable SMS you can create a Node.js application that sends many messages and reports when each of them has been delivered—or not.</p><p>Twilio Programmable SMS includes a helper library for Node.js that makes it easy to interact with the SMS API without having to create and manipulate connections to the API endpoints. Once an SMS message request is created with the helper library its status is emitted as a JavaScript Promise. While that is great for creating a request asynchronously, Promises only resolve once, and the message request will pass through more than one state as it makes its way—or not—to the recipient.</p><p>You can create a mechanism for monitoring and reporting the status...</p>",
+        "url": "https://www.twilio.com/blog/confirming-sms-message-delivery-with-rxjs-observables-node-js-and-twilio-programmable-sms",
+        "date": 1586390400,
+        "keywords": ["javascript", "nodejs", "rxjs"],
+        "for": "Twilio"
+    },
+    {
+        "title": "Asynchronous JavaScript: Using RxJS Observables with REST APIs in Node.js",
+        "description": "<p>ReactiveX is an electrifying programming concept. It’s widely adopted in popular programming languages, including JavaScript. ReactiveX programs can react to data as it is emitted from a source, rather than get the data from it. This is a convenient way of handling data from sources like web APIs or WebSockets.</p><p>In this post you’ll get hands-on experience doing ReactiveX programming with RxJS: ReactiveX for JavaScript. You’ll learn how to perform REST API calls to retrieve data asynchronously, manipulate it as it arrives, and perform subsequent calls based on the emitted data. You’ll also see how to perform other actions whenever data is emitted by an Observable.</p><p>This post focuses on how to utilize RxJS Observables with REST API calls...</p>",
+        "url": "https://www.twilio.com/blog/async-js-rxjs-observables-rest-api-nodejs",
+        "date": 1580083200,
+        "keywords": ["javascript", "nodejs", "rxjs"],
+        "for": "Twilio"
+    },
+    {
+        "title": "Asynchronous JavaScript: Introducing ReactiveX and RxJS Observables",
+        "description": "<p>Reactive Extensions (ReactiveX) are one of the most widely-adopted set of tools in programming today. ReactiveX libraries for JavaScript and other languages provide a way to operate on sequences of data as if they were events. This is a convenient way to handle data from asynchronous sources like web APIs: your programs can react to data as it is emitted from the source without tightly coupling the code that uses the data with the code that gets the data.</p><p>In this post you’ll learn about the fundamental concepts of ReactiveX programming and get hands-on experience doing ReactiveX programming with RxJS for JavaScript. You’ll learn how to retrieve data asynchronously, manipulate it as it arrives, and handle errors. You’ll also see how RxJS Observables compare to JavaScript Promises.</p>",
+        "url": "https://www.twilio.com/blog/asynchronous-javascript-reactivex-rxjs-observables-nodejs",
+        "date": 1572480000,
+        "keywords": ["javascript", "nodejs", "rxjs"],
+        "for": "Twilio"
+    },
+    {
+        "title": "Asynchronous JavaScript: Refactoring Callbacks to Promises in Node.js",
+        "description": "<p>If you know how the event loop mechanism works in JavaScript you know how it enables you to work with asynchronous events. You might also know how to refactor your code into separate functions to reduce the amount of nesting associated with a sequence of callback functions. If you work with web APIs you are probably familiar with the JavaScript request library, which is used to perform HTTP calls.</p><p>You can put these skills together to retrieve remote data through an HTTP request and work with the call response asynchronously. But in doing so you’ll probably notice that code has at least one pitfall: the logical order of declared functions is reversed. That makes the code hard to read and maintain.</p><p>With the node-fetch JavaScript library and Promise objects you can reduce nesting, known as the callback “Pyramid of Doom”, and organize your code in a more readable and logical</p>",
+        "url": "https://www.twilio.com/blog/asynchronous-javascript-refactor-callbacks-promises-node-js",
+        "date": 1571011200,
+        "keywords": ["javascript", "nodejs", "rxjs"],
+        "for": "Twilio"
+    },
+    {
+        "title": "Asynchronous JavaScript: Advanced Promises with Node.js",
+        "description": "<p>JavaScript Promise objects are a considerable improvement over basic JavaScript callback functions. Promises provide an object that represents both the state of an asynchronous function and the values returned by it. The state indicates whether the promise is pending, fulfilled by a successfully completed operation, or rejected because of an error or other condition. When a promise is fulfilled its value is determined by the asynchronous operation executed by the promise.</p><p>Promises can also be chained together to use the state of settled promises (resolved or rejected) and the promises’ values to control the flow of execution in your program. This is useful when you have a sequence of asynchronous operations to perform that each depend on the results of the previous operation: the next step in the chain isn’t performed until the preceding step is resolved. Chains of promises also include error propagation; errors in a...</p>",
+        "url": "https://www.twilio.com/blog/asynchronous-javascript-advanced-promises-chaining-collections-nodejs",
+        "date": 1570665600,
+        "keywords": ["javascript", "nodejs", "promises"],
+        "for": "Twilio"
+    },
+    {
+        "title": "Asynchronous JavaScript: Introduction to JavaScript Promises",
+        "description": "<p>Asynchronous processing is one of the most important capabilities JavaScript acquired as the language matured. JavaScript’s async capabilities enable more sophisticated and responsive user interfaces. They also make it possible to implement a distributed web application architecture built on standards like SOAP and REST.</p><p>JavaScript Promises are currently the most powerful and flexible asynchronous technology built into the language itself. This post will explain how they work and get you writing your own promises with some practical examples.</p>",
+        "url": "https://www.twilio.com/blog/asynchronous-javascript-introduction-promises",
+        "date": 1567209600,
+        "keywords": ["javascript", "nodejs", "promises"],
+        "for": "Twilio"
+    },
+    {
+        "title": "Asynchronous JavaScript: Organizing Callbacks for Readability and Reusability",
+        "description": "<p>Asynchronous programming is an essential part of being a complete JavaScript programmer. Understanding the code execution flow in JavaScript is the foundation of understanding how it can handle asynchronous tasks. And being able to program asynchronous tasks enables you to take advantage of the extensive array of functions provided by JavaScript runtime engines and external APIs. With those tools you can connect your JavaScript programs with web APIs across the internet and effectively manage those—sometimes tenuous—connections.</p><p>With power comes complexity. Using JavaScript callbacks to implement asynchronous functionality can quickly create a series of deeply nested function calls. This post will show you how to write and organize your JavaScript callbacks to maximize the readability, maintainability, and reusability of your asynchronous functions.</p><p>As an old programming saying goes:</p><p>\"Any fool can write code that a computer can understand. Good programmers write code that humans can understand.\"</p><p>The first part of this...</p>",
+        "url": "https://www.twilio.com/blog/asynchronous-javascript-organize-callbacks-readability-reusability",
+        "date": 1561680000,
+        "keywords": ["javascript", "nodejs", "callbacks"],
+        "for": "Twilio"
+    },
+    {
+        "title": "Asynchronous JavaScript: Understanding Callbacks",
+        "description": "<p>By design, JavaScript is a synchronous scripting language. In fact, many of the widely used asynchronous functions in JavaScript are not part of the core language. Understanding how asynchronous features work in the JavaScript ecosystem, including the role played by external APIs, is an essential part of using the language effectively.</p><p>This post will show you how to use asynchronous functionality in JavaScript. It’s also going to explain an important difference between the way code execution works in JavaScript and other languages and frameworks. Understanding this difference is essential to understanding how to do asynchronous programming with JavaScript.</p>",
+        "url": "https://www.twilio.com/blog/asynchronous-javascript-understanding-callbacks",
+        "date": 1561680000,
+        "keywords": ["javascript", "nodejs", "callbacks"],
+        "for": "Twilio"
+    },
+    {
+        "title": "Protecting JavaScript Microservices on Node.js with JSON Web Tokens and Twilio Authy",
+        "description": "<p>Building a JavaScript application on Node.js with a microservices architecture gives you the ability to scale your app: you can respond to varying load levels by adding and removing instances of a service. When multiple instances of a service access the same data, your application can use a common persistence layer, a database, to share information between instances and maintain consistency between them.</p><p>In many applications you'll also want to limit access to some data and functions to particular users. While you could do this directly in your service APIs, there's a better way.</p><p>This post will show you how to add two-factor authentication (2FA) with Twilio Authy and an authorization web service using JSON Web Tokens (JWTs), a standard for securely storing and transmitting sensitive data.</p>",
+        "url": "https://www.twilio.com/blog/protecting-javascript-microservices-node-js-json-web-tokens-twilio-authy",
+        "date": 1558656000,
+        "keywords": ["javascript", "nodejs", "microservices", "jwt", "authorization", "authentication", "security"],
+        "for": "Twilio"
+    },
+    {
+        "title": "Scaling Node.js JavaScript Microservices on Shared MongoDB Atlas Cloud Persistence Layers",
+        "description": "<p>Building a JavaScript application on Node.js with a microservices architecture gives you the ability to scale your app to respond to increasing load levels by adding more instances of a service. But when multiple instances of a service work with the same data your application will have an additional design requirement: you'll need a persistence layer the service instances can use to store and share data.</p><p>This post will show you how to use a database as a persistence layer for a JavaScript microservices application. You'll see how the application uses Netflix Eureka and Netflix Zuul for service discovery and load balancing. You'll be able to apply the techniques you learn here to build applications you can scale up and scale out while avoiding the complexity of building service discovery and load balancing on your own.</p>",
+        "url": "https://www.twilio.com/blog/scale-node-js-javascript-microservices-shared-mongodb-atlas",
+        "date": 1556755200,
+        "keywords": ["javascript", "nodejs", "microservices", "mongodb"],
+        "for": "Twilio"
+    },
+    {
+        "title": "Implementing Eureka and Zuul for Service Discovery and Dynamic Routing in JavaScript Microservices Running on Node.js",
+        "description": "<p>Building your JavaScript applications as a collection of microservices give you a number of advantages. Your applications can be more modular, uniform, and testable as you build them and they can be more robust, scalable, and available when you deploy them to the production environment. Including a service discovery registry and dynamic routing capabilities will help you achieve scalability and availability in the production.</p><p>This post will show you how to integrate service discovery and intelligent routing into a Node.js application built with a microservices architecture. You'll see how you can do this with two Netflix open source projects, Eureka and Zuul, that run in the Java SE Runtime Environment.</p><p>The Netflix Eureka server provides service discovery. This gives your application's services the ability to find other services without knowing where they are hosted or the full URL required to reach them, so you don't have to provide complete URLs...</p>",
+        "url": "https://www.twilio.com/blog/eureka-zuul-service-discovery-dynamic-routing-javascript-microservices-node-js",
+        "date": 1555891200,
+        "keywords": ["javascript", "nodejs", "microservices", "netflix", "eureka", "zuul"],
+        "for": "Twilio"
+    },
+    {
+        "title": "Building JavaScript Microservices with Node.js",
+        "description": "<p>When your JavaScript application grows in size you start facing challenges with maintaining the code, fixing bugs, and implementing new features. Also, adding new developers to the project becomes complicated.</p><p>Applications are built from pieces, like packages and modules, but at some point those structures aren’t enough to reduce the size and complexity of the application. The idea behind distributed systems is to break big, monolithic designs into small, independent programs which communicate with each other to exchange data and perform operations.</p><p>One of the many variants of distributed systems is the microservices architecture, which structures an application as a collection of loosely coupled services. Services are fine-grained and the communication protocols are lightweight (like the HTTP protocol).</p>",
+        "url": "https://www.twilio.com/blog/building-javascript-microservices-node-js",
+        "date": 1554854400,
+        "keywords": ["javascript", "nodejs", "microservices"],
+        "for": "Twilio"
+    },
+    {
+        "title": "Encrypting Cookies with Angular Universal and Node.js",
+        "description": "<p>Cookies are a ubiquitous feature of web applications, as anyone clicking GDPR notifications for the last several months has realized. Securely handling the data in those cookies is just as much a requirement as the consent notification. Encrypting your Angular and Node.js application cookies is a way to prevent unauthorized access to confidential and personal information, and it’s easy to implement.</p><p>As you know, using an httpOnly cookie helps prevent cross-site scripting (XSS) attacks. (You can learn more in another post.) But what about protecting one registered user’s data against another registered user? Are cookies vulnerable to attacks from trusted users?</p><p>This post will demonstrate how authenticated users can get unauthorized access to other users’ cookie data. It will also show you how to encrypt your cookies so the data can only be read by your code, not by users.</p>",
+        "url": "https://www.twilio.com/blog/encrypting-cookies-angular-universal-node-js",
+        "date": 1552435200,
+        "keywords": ["javascript", "angular", "angular universal", "seo", "security"],
+        "for": "Twilio"
+    },
+    {
+        "title": "Building Expedited Two-Factor Authentication into Angular Apps with Authy",
+        "description": "<p>Two-Factor Authentication (2FA) provides web applications with an important additional layer of security, but 2FA requires the user to perform an additional action each time they log in. This extra step can be wearying for users who sign into an application frequently. Is it possible to maintain the security provided by a second factor while making an application convenient for repeat visitors? It is with Angular, Node.js, and Twilio Authy.</p><p>Implementing a “remember me” checkbox on the login page is a convenient way for a user to indicate they are going to be a repeat visitor. Behind the scenes, an encrypted security cookie is a convenient mechanism for identifying a user who has previously checked the “remember me” box and logged in successfully from a specific machine.</p><p>With Twilio Authy and an encrypted cookie, such as a JSON Web Token (JWT), you can make the sign-in process fast and...</p>",
+        "url": "https://www.twilio.com/blog/expedited-two-factor-authentication-angular-twilio-authy",
+        "date": 1551225600,
+        "keywords": ["javascript", "angular", "angular universal", "seo", "security", "authentication", "2factor"],
+        "for": "Twilio"
+    },
+    {
+        "title": "How to Transfer Files and Data Between Angular Clients and Node.js Backends",
+        "description": "<p>Having a shared codebase for both the server-side and browser-side code of an Angular application aids the maintainability of a project. You can do that with Angular Universal and Node.js using the server-side rendering (SSR) concept. You can even use SSR to securely pass data, including files, between the application server (Node.js) and the Angular application running on it.</p><p>This post will show you how to create an application for uploading, storing, managing, and downloading files from a Node.js server using a single codebase. When you finish this project you’ll be able to...</p>",
+        "url": "https://www.twilio.com/blog/transfer-files-data-javascript-applications-angular-node-js",
+        "date": 1551139200,
+        "keywords": ["javascript", "angular", "angular universal", "seo", "transferstate"],
+        "for": "Twilio"
+    },
+    {
+        "title": "Build Two-factor Authentication in Angular with Twilio Authy",
+        "description": "<p>User authentication is a crucial requirement for many Angular applications and simply logging in with user ID and password is increasingly inadequate security. Two-Factor Authentication (2FA) provides device-based security that is substantially more difficult to hack, but building your own 2FA system is a daunting challenge. Twilio Authy makes it easy to add 2FA to Angular apps.</p><p>This post will show you how to add Authy to your Angular project. You’ll also learn how to improve the user’s experience and your app’s security by using Angular Universal to implement the login process.</p>",
+        "url": "https://www.twilio.com/blog/two-factor-authentication-angular-twilio-authy",
+        "date": 1548720000,
+        "keywords": ["javascript", "angular", "angular universal", "seo", "security", "authentication", "2factor"],
+        "for": "Twilio"
+    },
+    {
+        "title": "Build Faster JavaScript Web Apps with Angular Universal, a TransferState Service and an API Watchdog",
+        "description": "<p>Search Engine Optimization (SEO) is vital for most web applications. You can build SEO-friendly Angular apps with Angular Universal, but what about the performance and efficiency of such an application? This post will show you how to build fast Angular apps that use client and server resources efficiency while providing server-side rendering (SSR) for SEO purposes.</p><p>In this post we will...</p>",
+        "url": "https://www.twilio.com/blog/faster-javascript-web-apps-angular-universal-transferstate-api-watchdog",
+        "date": 1546387200,
+        "keywords": ["javascript", "angular", "angular universal", "performance", "transferstate"],
+        "for": "Twilio"
+    },
+    {
+        "title": "How to Create Search Engine-friendly Internationalized Web Apps with Angular Universal and ngx-translate",
+        "description": "<p>Search Engine Optimization (SEO) is important for many Angular single-page applications (SPAs). You can build SEO-friendly Angular websites with Angular Universal, but how do you make your app SEO-friendly in every language your website supports? Google, Yandex, and Baidu, might request your pages in English, Spanish, Russian, or Chinese: how do you make your server-side rendering return the correct language?</p><p>The answer is ngx-translate, the internationalization (i18n) and localization library for Angular. This module makes it easy to use translation files that provide the correct language for both client-side and server-side rendering. This post will show you how to use it.</p>",
+        "url": "https://www.twilio.com/blog/create-search-engine-friendly-internationalized-web-apps-angular-universal-ngx-translate",
+        "date": 1544745600,
+        "keywords": ["javascript", "angular", "angular universal", "i18n"],
+        "for": "Twilio"
+    },
+    {
+        "title": "Getting Started with Serverless Angular Universal on AWS Lambda",
+        "description": "<p>You can build search-engine optimized (SEO) friendly single page applications (SPA’s) with Angular Universal, a technology that runs your Angular application on the server. And you can reduce the cost of running those applications with AWS Lambda, an event-driven, serverless computing platform provided as a part of Amazon Web Services (AWS). This post will show you how to build and deploy Angular Universal projects on AWS Lambda using Serverless Framework, an open-source command line interface for building and deploying serverless applications.</p>",
+        "url": "https://www.twilio.com/blog/angular-universal-javascript-node-js-aws-lambda",
+        "date": 1542585600,
+        "keywords": ["javascript", "angular", "angular universal", "serverless", "amazon web services"],
+        "for": "Twilio"
+    },
+    {
+        "title": "Preventing Memory Leaks in Angular Observables with ngOnDestroy",
+        "description": "<p>A memory leak is one of the worst types of issues you can have. It’s hard to find, hard to debug, and often hard to solve. Unfortunately, this problem occurs in every programming language or framework, including Angular. Observables are awesome, because of the incessant stream of data, but this benefaction can cause serious problem with memory leak. Today we will take a closer look at the ngOnDestroy Angular hook, and answer the question: “When should I unsubscribe from an observable? What is the best pattern to use?”</p>",
+        "url": "https://www.twilio.com/blog/prevent-memory-leaks-angular-observable-ngondestroy",
+        "date": 1540512000,
+        "keywords": ["javascript", "angular", "memory management", "best practices"],
+        "for": "Twilio"
+    },
+    {
+        "title": "How to Handle Routing in Angular Single Page Applications (SPAs) with JavaScript and Node.js",
+        "description": "<p>Routing is an essential concept in Single Page Applications (SPA). When your application is divided into separated logical sections, and all of them are under their own URL, your users can easily share links among each other.</p><p>In my previous post, Building an App from Scratch with Angular and Webpack, I covered how to start working with Angular and Webpack. Today we will take a closer look at implementing more components and navigating between them.</p>",
+        "url": "https://www.twilio.com/blog/2018/05/angular-routing-single-page-applications-javascript-nodejs.html",
+        "date": 1525219200,
+        "keywords": ["javascript", "angular"],
+        "for": "Twilio"
+    },
+    {
+        "title": "Building an App from Scratch with Angular and Webpack",
+        "description": "<p>Using Angular CLI is a popular way of creating Single Page Apps (SPA) with Angular. However, sometimes CLI is not an option for your project or you just want to have better control on what’s going on behind the scenes. Let’s take a look at how we can create an Angular project entirely from scratch.</p>",
+        "url": "https://www.twilio.com/blog/2018/03/building-an-app-from-scratch-with-angular-and-webpack.html",
+        "date": 1520899200,
+        "keywords": ["javascript", "angular"],
+        "for": "Twilio"
+    },
+    {
+        "title": "How to Write Your Own Serverless Framework Plugin for AWS Lambda using JavaScript",
+        "description": "<p>The Serverless framework makes it easy to deploy applications to AWS Lambda. However, Serverless does not currently support binary files, but we can solve this issue by implementing a Serverless plugin and uploading proper configuration to the AWS API Gateway.</p>",
+        "url": "https://www.twilio.com/blog/2017/10/serverless-framework-plugin-aws-lambda-javascript.html",
+        "date": 1508976000,
+        "keywords": ["javascript", "serverless", "nodejs"],
+        "for": "Twilio"
+    },
+    {
+        "title": "How to Deploy JavaScript & Node.js Applications to AWS Lambda",
+        "description": "<p>Functions-as-a-Service (FaaS) such as Amazon Web Services Lambda and Twilio Functions can be cheap execution environments in which you pay only for resources used to deal with a particular request, typically measured in seconds or milliseconds.</p><p>Today we will take a look at deploying a JavaScript Node.js application to AWS Lambda. Our application will keep a list of our best friends which we would like to invite for a birthday party.</p>",
+        "url": "https://www.twilio.com/blog/2017/09/serverless-deploy-nodejs-application-on-faas-without-pain.html",
+        "date": 1505347200,
+        "keywords": ["angular", "angular universal", "amazon web services", "javascript", "serverless", "nodejs"],
+        "for": "Twilio"
     }
 ]
+
