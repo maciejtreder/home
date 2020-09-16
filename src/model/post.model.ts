@@ -1,8 +1,9 @@
-export interface Post {
+import { WithDate } from './withdate.model';
+
+export interface Post extends WithDate {
     title: string;
     description: string;
     url: string;
-    date: Date;
     keywords: string[];
     for: string;
 }

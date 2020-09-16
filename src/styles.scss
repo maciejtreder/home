@@ -37,3 +37,35 @@ a {
 p{
     margin-bottom: 1em;
 }
+
+.date {
+    font-size: 0.75em;
+    margin-bottom: 0.7em;
+}
+
+h3 {
+    font-size: 1.5em;
+    margin-bottom: 0.3em;
+}
+
+h4 {
+    font-size: 1.2em;
+    margin-bottom: 0.2em;
+}
+
+.description {
+    margin-bottom: 1em;
+    
+}
+
+.keywords {
+    font-size: 0.9em;
+
+    span + span {
+        margin: 0 0 0 5px;
+    }
+}
+
+.entry + .entry {
+    margin-top: 5em;
+}

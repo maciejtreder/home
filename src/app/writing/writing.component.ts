@@ -13,7 +13,7 @@ export class WritingComponent implements OnInit {
 
   constructor(private cs: ContentService) { }
 
-  public posts = this.cs.getWriting().pipe();
+  public posts = this.cs.getWriting();
 
   ngOnInit(): void {
   }

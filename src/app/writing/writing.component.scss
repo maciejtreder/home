@@ -2,31 +2,3 @@ a:hover .title{
     text-decoration: underline;
 }
 
-.date {
-    font-size: 0.75em;
-    margin-bottom: 0.7em;
-}
-
-.title {
-    font-size: 1.5em;
-    margin-bottom: 0.3em;
-}
-
-.description {
-    margin-bottom: 1em;
-    
-}
-
-
-
-.keywords {
-    font-size: 0.9em;
-
-    span + span {
-        margin: 0 0 0 5px;
-    }
-}
-
-.entry + .entry {
-    margin-top: 5em;
-}

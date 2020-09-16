@@ -1,0 +1,74 @@
+[
+    {
+        "title": "WT* is JWT",
+        "event": "ApiDays Australia",
+        "place": "online",
+        "description": "<p>JWT, JWKS, JOSE header etc. etc. etc. Do you feel lost in all of that shortcuts? This session explains in simple way what is JSON Web Token and how you can utilize them in your daily job.</p>",
+        "pictureMain": "jwt.jpeg",
+        "picture": ["jwt.jpeg"],
+        "vid": "",
+        "slides": "https://speakerdeck.com/maciejtreder/wt-star-is-jwt",
+        "keywords": ["jwt", "network", "microservices", "jws", "jwe"],
+        "date": 1600214400
+    },
+    {
+        "title": "WT* is JWT",
+        "event": "API Con",
+        "place": "The Hague, Netherlands / online",
+        "description": "<p>JWT, JWKS, JOSE header etc. etc. etc. Do you feel lost in all of that shortcuts? This session explains in simple way what is JSON Web Token and how you can utilize them in your daily job.</p>",
+        "pictureMain": "jwt.jpeg",
+        "picture": ["jwt.jpeg"],
+        "vid": "",
+        "slides": "https://speakerdeck.com/maciejtreder/wt-star-is-jwt",
+        "keywords": ["jwt", "network", "microservices", "jws", "jwe"],
+        "date": 1597795200
+    },
+    {
+        "title": "Asynchronous and Synchronous JavaScript. There and back again",
+        "event": "FrontCon",
+        "place": "Riga, Latvia / online",
+        "description": "<p>Callbacks… Callbacks everywhere… Callback inside the callback, and one more inside! Asynchronous JavaScript code is a pain. Event loop is a JavaScript “bigfoot” – everyone heard about it, almost nobody knows how it works… There is multiple ways you can deal with the asynchronous action: callbacks, Promises, Observables, async-await; but which one is best? Which one should you choose for the particular scenarios?</p>",
+        "pictureMain": "async_js.jpeg",
+        "picture": ["async_js.jpeg"],
+        "vid": "",
+        "slides": "https://speakerdeck.com/maciejtreder/asynchronous-javascript-there-and-back-again",
+        "keywords": ["javascript", "rxjs", "promises"],
+        "date": 1597795200
+    },
+    {
+        "title": "Asynchronous and Synchronous JavaScript. There and back again",
+        "event": "Web Directions Code",
+        "place": "Melbourne, Australia / online",
+        "description": "<p>Callbacks… Callbacks everywhere… Callback inside the callback, and one more inside! Asynchronous JavaScript code is a pain. Event loop is a JavaScript “bigfoot” – everyone heard about it, almost nobody knows how it works… There is multiple ways you can deal with the asynchronous action: callbacks, Promises, Observables, async-await; but which one is best? Which one should you choose for the particular scenarios?</p>",
+        "pictureMain": "async_js.jpeg",
+        "picture": ["async_js.jpeg"],
+        "vid": "",
+        "slides": "https://speakerdeck.com/maciejtreder/asynchronous-javascript-there-and-back-again",
+        "keywords": ["javascript", "rxjs", "promises"],
+        "date": 1599782400
+    },
+    {
+        "title": "Asynchronous and Synchronous JavaScript. There and back again",
+        "event": "DevTalks",
+        "place": "Cluj, Romania / online",
+        "description": "<p>Callbacks… Callbacks everywhere… Callback inside the callback, and one more inside! Asynchronous JavaScript code is a pain. Event loop is a JavaScript “bigfoot” – everyone heard about it, almost nobody knows how it works… There is multiple ways you can deal with the asynchronous action: callbacks, Promises, Observables, async-await; but which one is best? Which one should you choose for the particular scenarios?</p>",
+        "pictureMain": "async_js.jpeg",
+        "picture": ["async_js.jpeg"],
+        "vid": "",
+        "slides": "https://speakerdeck.com/maciejtreder/asynchronous-javascript-there-and-back-again",
+        "keywords": ["javascript", "rxjs", "promises"],
+        "date": 1601942400
+    },
+    {
+        "title": "Boost your app with Angular Universal - make it SEO & CDN-friendly",
+        "event": "Angular Athens",
+        "place": "Athens, Greece",
+        "description": "<p>Most of the Single Page Applications, and Angular is not an exception here, manifest one common problem. They are not SEO/CDN/prefetching friendly.</p><p>Some could ask “Why should I care about that? My application bootstraps in the browser and looks awesome”, and they are right, as long as they are well-known companies who don’t need to position themselves on the market, AND their applications are closed ecosystems. In any other case, SEO and prefetching is a “to be or not to be” of the application.</p><p>Is there a way to move Angular rendering process to the server and deliver richer content to the browser instead of pure index.html with tones of JavaScript? Yes, there is! It is called Angular Universal, and thanks to it, we achieve much faster First Meaningful Paint of our website! However, there are some pitfalls and risks as well...</p>",
+        "pictureMain": "athens.jpg",
+        "picture": ["athens.jpg"],
+        "vid": "https://www.youtube.com/watch?v=P70FbyQSAm4",
+        "slides": "https://speakerdeck.com/maciejtreder/asynchronous-javascript-there-and-back-again",
+        "keywords": ["javascript", "angular", "angular universal", "seo", "cdn", "performance"],
+        "date": 1601942400
+    }
+]

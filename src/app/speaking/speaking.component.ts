@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ContentService } from '../content.service';
 
 @Component({
   selector: 'app-speaking',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SpeakingComponent implements OnInit {
 
-  constructor() { }
+  public speeches = this.cs.getSpeeches();
+
+  constructor(private cs: ContentService) { }
 
   ngOnInit(): void {
   }
