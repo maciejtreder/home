@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { GoogleAnalyticsService } from 'src/app/google-analytics.service';
 
 @Component({
   selector: 'app-footer',
@@ -39,6 +40,8 @@ export class FooterComponent {
     phone: 'inactive'
   };
 
+  constructor(private ga: GoogleAnalyticsService) {}
+
   public animate(what: string): void {
     if (this.freezed) {
       return;
@@ -50,6 +53,8 @@ export class FooterComponent {
   public handleClick(event): void {
     if (this.freezed != event.target.name) {
       event.preventDefault();
+    } else {
+      this.ga.trackEvent(event.target.name);
     }
     
     
