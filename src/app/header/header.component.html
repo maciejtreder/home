@@ -1,9 +1,12 @@
 <div *ngIf="displayTitle" class="title">
     <h1><strong>maciej</strong>treder</h1>
-    <h2>{{title | async}}</h2>
+    
 </div>
-<div class="navigation" *ngIf="!displayTitle || (title | async) != 'home'">
-    <a routerLink="speaking">speaking</a>
-    <a routerLink="writing">writing</a>
-    <a routerLink="teaching">teaching</a>
+<!-- *ngIf="!displayTitle || ['speaking', 'writing', 'teaching'].includes((title | async))" -->
+<div class="navigation" >
+    <!-- {{title | async}} -->
+    <!-- <h2 [innerHtml]="title | async">{{title | async}}</h2> -->
+    <a routerLink="speaking" routerLinkActive="active">speaking</a>
+    <a routerLink="writing" routerLinkActive="active">writing</a>
+    <a routerLink="teaching" routerLinkActive="active">teaching</a>
 </div>
