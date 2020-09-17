@@ -1,5 +1,6 @@
-<app-header [displayTitle]="true" [displayMenu]="displayMenu | async"></app-header>
+<app-header [displayTitle]="true" [displayMenu]="displayMenu | async" id="header"></app-header>
 <div id="content-wrapper">
     <router-outlet></router-outlet>
 </div>
 <app-footer></app-footer>
+<div class="outer"><span (click)="navigateToHeader()" [@state]="scrollState | async">&nbsp;</span></div>

@@ -1,6 +1,47 @@
 :host {
-  padding: 20px;
   flex: 1 0 auto;
   display: flex;
   flex-direction: column;
+  width: 1200px;
+
+  @media screen and (max-width: 1240px) {
+    width: 100%;
+  }
+}
+
+:host > * {
+  padding: 0 20px;
+}
+
+div.outer {
+  position: fixed;
+  padding: 0;
+  bottom: 0;
+
+  width: inherit;
+  height: 64px;
+  display: flex;
+  flex-direction: row-reverse;
+
+  span {
+    opacity: 0;
+    width: 60px;
+    height: 60px;
+    background: #efefef url('../assets/img/arrow.png');
+    background-size: cover;
+    box-shadow: 1px 1px 10px #cccccc;
+    border-radius: 60px;
+    display: block;
+    position: relative;
+    bottom: 10px;
+    right: -64px;
+
+    @media screen and (max-width: 1350px) {
+      right: 20px;
+    }
+  }
+
+  span:hover {
+    cursor: pointer;
+  }
 }
