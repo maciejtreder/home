@@ -1,13 +1,51 @@
-
-<mat-paginator [length]="(dataSource$ | async)?.length"
+<form [formGroup]="filterForm">
+    <mat-form-field class="example-form-field">
+        <mat-label>title</mat-label>
+        <input matInput type="text" formControlName="title" autocomplete="false">
+        <button mat-button *ngIf="filterForm.controls['title'].value" matSuffix mat-icon-button aria-label="Clear" (click)="filterForm.controls['title'].reset()">
+          <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+        <input type="text"
+               placeholder="publisher"
+               matInput
+               formControlName="publisher"
+               [matAutocomplete]="auto1">
+        <button mat-button *ngIf="filterForm.controls['publisher'].value" matSuffix mat-icon-button aria-label="Clear" (click)="filterForm.controls['publisher'].reset()">
+            <mat-icon>close</mat-icon>
+        </button>
+        <mat-autocomplete autoActiveFirstOption #auto1="matAutocomplete">
+          <mat-option *ngFor="let option of filteredPublishers$ | async" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field class="example-chip-list">
+        <mat-chip-list #chipList >
+          <mat-chip
+            *ngFor="let tag of selectedTags"
+            [removable]="true"
+            [selectable]="true"
+            (removed)="remove(tag)">
+            {{tag}}
+            <mat-icon matChipRemove >cancel</mat-icon>
+          </mat-chip>
+          <input
+            placeholder="hashtag"
+            formControlName="hashtags"
+            [matAutocomplete]="auto2"
+            [matChipInputFor]="chipList">
+        </mat-chip-list>
+        <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="selectedTag($event)">
+          <mat-option *ngFor="let tag of filteredTags$ | async" [value]="tag">
+            {{tag}}
+          </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+</form>
+<mat-paginator [length]="(toDisplay$ | async)?.length"
                [pageSize]="5"
                [pageSizeOptions]="[5,10,25]"
                (page)="pageEvent($event)">
 </mat-paginator>
-
-<!-- <div *ngIf="pageEvent">
-  <h5>Page Change Event Properties</h5>
-  <div>List length: {{pageEvent.length}}</div>
-  <div>Page size: {{pageEvent.pageSize}}</div>
-  <div>Page index: {{pageEvent.pageIndex}}</div>
-</div> -->
