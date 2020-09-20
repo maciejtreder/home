@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { TransferHttpCacheModule } from '@nguniversal/common';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +13,7 @@ import { WritingComponent } from './writing/writing.component';
 import { SpeakingComponent } from './speaking/speaking.component';
 import { TeachingComponent } from './teaching/teaching.component';
 import { HeaderComponent } from './header/header.component';
+import { FilterComponent } from './filter/filter.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { HeaderComponent } from './header/header.component';
     WritingComponent,
     SpeakingComponent,
     TeachingComponent,
-    HeaderComponent
+    HeaderComponent,
+    FilterComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -29,7 +32,8 @@ import { HeaderComponent } from './header/header.component';
     BrowserAnimationsModule,
     HttpClientModule,
     BrowserTransferStateModule,
-    TransferHttpCacheModule
+    TransferHttpCacheModule,
+    MatPaginatorModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

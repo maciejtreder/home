@@ -49,7 +49,5 @@ export class AppComponent {
     ).subscribe(val => {
       this.scrollState.next(val);
     })
-
-    this.scrollState.subscribe(console.log)
   }
 }

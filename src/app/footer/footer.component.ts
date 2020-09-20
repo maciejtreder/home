@@ -58,7 +58,6 @@ export class FooterComponent {
     }
     
     
-    console.log(!!this.freezed);
     if (!!this.freezed) {
       this.performAnimation(event.target.name);
     }
