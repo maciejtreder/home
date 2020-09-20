@@ -70,5 +70,38 @@
         "slides": "https://speakerdeck.com/maciejtreder/asynchronous-javascript-there-and-back-again",
         "keywords": ["javascript", "angular", "angular universal", "seo", "cdn", "performance"],
         "date": 1601942400
+    },
+    {
+        "title": "Boost your app with Angular Universal - make it SEO & CDN-friendly",
+        "event": "DevFest Poland",
+        "place": "Warsaw, Poland",
+        "description": "<p>Most of the Single Page Applications, and Angular is not an exception here, manifest one common problem. They are not SEO/CDN/prefetching friendly.</p><p>Some could ask “Why should I care about that? My application bootstraps in the browser and looks awesome”, and they are right, as long as they are well-known companies who don’t need to position themselves on the market, AND their applications are closed ecosystems. In any other case, SEO and prefetching is a “to be or not to be” of the application.</p><p>Is there a way to move Angular rendering process to the server and deliver richer content to the browser instead of pure index.html with tones of JavaScript? Yes, there is! It is called Angular Universal, and thanks to it, we achieve much faster First Meaningful Paint of our website! However, there are some pitfalls and risks as well...</p>",
+        "pictureMain": "universal.jpeg",
+        "picture": ["universal.jpeg"],
+        "slides": "https://speakerdeck.com/maciejtreder/asynchronous-javascript-there-and-back-again",
+        "keywords": ["javascript", "angular", "angular universal", "seo", "cdn", "performance"],
+        "date": 1575728190
+    },
+    {
+        "title": "JavaScript APIs you didn’t imagine they even exist",
+        "event": "DevFest Poland",
+        "place": "Warsaw, Poland",
+        "description": "<p>Did you know that you are able to access device gyroscope, ambient light sensor and others by JavaScript? Learn about that and much more incredible APIs which are available in modern browsers.</p>",
+        "pictureMain": "js_apis.jpeg",
+        "picture": ["js_apis.jpeg"],
+        "keywords": ["javascript"],
+        "date": 1575728190
+    },
+    {
+        "title": "Angular Schematics - develop for developers",
+        "event": "DevFest Siberia",
+        "place": "Nobosibirsk, Russia",
+        "description": "<p>Schematics is an underestimated part of Angular project. By using them, library developers gain super-powers to helping their customers. You can adjust your customer projects with changes necessary to use the library you provide. Apart from that, Schematics is a great tool for enterprise, which needs to maintain UI elements on behalf of multiple dev-teams.</p><p>In this talk, I am going to start from a high-overview of schematics framework, used by Angular CLI. Audience would get familiar with the Tree and Rule objects concept. I want to show a working example of create, read, update and delete operations, performed by schematics, how can you make  use of TypeScript compiler and how to send a task like package installation to NodeJS.</p><p>What will be covered here, are ‚ng add’, ‚ng update’, ’ng new’, ‚ng generate’ etc. etc. commands, together with best practices, how to perform a unit tests, and end-to-end tests with the use of tools like mock npm registry.</p>",
+        "pictureMain": "devfest2019.jpg",
+        "picture": ["devfest2019.jpg"],
+        "keywords": ["javascript", "angular", "schematics", "cli"],
+        "slides": "https://speakerdeck.com/maciejtreder/angular-schematics",
+        "vid": "https://www.youtube.com/watch?v=sS5FQZ6QYnY",
+        "date": 1575158400
     }
 ]
