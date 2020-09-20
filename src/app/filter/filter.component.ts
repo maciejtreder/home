@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { PageEvent } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
-import { flatMap, map, startWith } from 'rxjs/operators';
+import { debounceTime, flatMap, map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-filter',
@@ -73,7 +73,9 @@ export class FilterComponent implements OnInit {
       map(entries => entries.filter(entry => !this.selectedTags.includes(entry)))
     );
 
-    this.filterForm.valueChanges.subscribe(value => {
+    this.filterForm.valueChanges.pipe(
+      debounceTime(500)
+    ).subscribe(value => {
       this.conditions = [];
       if (!!value.title) {
         const title = value.title.toLowerCase();
