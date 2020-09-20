@@ -2,6 +2,12 @@
     font-size: 50px !important;
 }
 
+
+
+:host ::ng-deep .navigation a:nth-child(2) {
+    font-weight: bold;
+}
+
 @media only screen and (max-width: 600px) {
     :host ::ng-deep .navigation {
         flex-direction: column;
