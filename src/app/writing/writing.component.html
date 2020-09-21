@@ -1,6 +1,6 @@
-<app-filter [source]="posts" (output)="listRefined($event)"></app-filter>
+<app-filter [source2]="(posts | async)" (filterChange)="listRefined($event)" ></app-filter>
 
-<div class="entry" *ngFor="let post of (display | async)">
+<div class="entry" *ngFor="let post of display">
     <a [href]="post.url" (click)="handleClick(post.url)">
         <div class="date">{{post.date | date}} | for {{post.for}}</div>
         <h3>{{post.title}}</h3>

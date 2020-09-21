@@ -9,7 +9,7 @@
     
   </div>
 
-  <mat-paginator [length]="(toDisplay$ | async)?.length"
+  <mat-paginator [length]="toDisplay?.length"
     [pageSize]="5"
     [pageSizeOptions]="[5,10,25]"
     (page)="pageEvent($event)">

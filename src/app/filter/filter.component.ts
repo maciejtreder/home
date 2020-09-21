@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { PageEvent } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
-import { debounceTime, flatMap, map, startWith } from 'rxjs/operators';
+import { debounceTime, map, startWith } from 'rxjs/operators';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
@@ -26,7 +26,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
         opacity: '0%'
       })),
       transition('visible => expanded', animate('500ms ease-in')),
-      transition('unfolded => folded', animate('500ms ease-out')),
+      transition('expanded => folded', animate('500ms ease-out')),
     ]),
     trigger('button', [
       state('show', style({
@@ -39,7 +39,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
     ])
   ]
 })
-export class FilterComponent implements OnInit {
+export class FilterComponent {
 
   public buttonState = "show"
   public formState = "hidden"
@@ -57,13 +57,16 @@ export class FilterComponent implements OnInit {
     }
   }
 
-  @Output('output')
-  public pageEmitter = new EventEmitter<Observable<any[]>>();
+  @Input('source2')
+  public dataSource: any[];
 
-  @Input('source')
-  public dataSource$: Observable<any[]>;
+  @Output('filterChange')
+  public filterChange = new EventEmitter<any[]>();
 
-  public toDisplay$: Observable<any[]>;
+  private from: number = 0;
+  private to: number = 5;
+
+  public toDisplay: any[];
 
   public filterForm: FormGroup = new FormGroup({
     title: new FormControl(''),
@@ -71,49 +74,42 @@ export class FilterComponent implements OnInit {
     hashtags: new FormControl('')
   });
 
-  public publishers$: Observable<string[]>;
+  public publishers: string[];
   public filteredPublishers$: Observable<string[]>;
 
-  public hashTags$: Observable<string[]>;
+  public hashTags: string[];
   public filteredTags$: Observable<string[]>;
-  public selectedTags = [];
+  public selectedTags:string[] = [];
 
   private conditions: any[] = [];
 
-  private displayLimit: any = map((items: any[]) => {
-    return items.slice(0, 5);
-  });
-
   constructor() { }
 
-  ngOnInit(): void {
-    this.publishers$ = this.dataSource$.pipe(
-      map(entries => entries.map(entry => entry.for)),
-      map(publishers => publishers.filter((value, index, self) => self.indexOf(value) === index))
-    )
+  ngOnChanges(): void {
+    if (!this.dataSource) {
+      return;
+    }
+    this.publishers = this.dataSource
+      .map(entry => entry.for)
+      .filter((value, index, self) => self.indexOf(value) === index)
 
     this.filteredPublishers$ = this.filterForm.controls['publisher'].valueChanges.pipe(
       startWith(''),
-      flatMap(value => {
+      map(value => {
         const filterValue = value? value.toLowerCase() : '';
-        return this.publishers$.pipe(
-          map(entries => entries.filter(entry => entry.toLowerCase().indexOf(filterValue) === 0))
-        )
+        return this.publishers.filter(entry => entry.toLowerCase().indexOf(filterValue) === 0);
       })
     );
 
-    this.hashTags$ = this.dataSource$.pipe(
-      map(entries => entries.map(entry => entry.keywords)),
-      map(arrays => arrays.reduce( (all, current) => all.concat(current))),
-      map(keyword => keyword.filter((value, index, self) => self.indexOf(value) === index))
-    );
+    this.hashTags = this.dataSource
+      .map(entry => entry.keywords)
+      .reduce((all, current) => all.concat(current))
+      .filter((value, index, self) => self.indexOf(value) === index)
 
     this.filteredTags$ = this.filterForm.controls['hashtags'].valueChanges.pipe(
       startWith(''),
-      flatMap(value => {
-        return this.hashTags$.pipe(
-          map(entries => entries.filter(entry => entry.toLowerCase().indexOf(value) === 0))
-        )
+      map(value => {
+        return this.hashTags.filter(entry => entry.toLowerCase().indexOf(value) === 0);
       }),
       map(entries => entries.filter(entry => !this.selectedTags.includes(entry)))
     );
@@ -149,12 +145,8 @@ export class FilterComponent implements OnInit {
   }
   
   public pageEvent(event: PageEvent) {
-    let itemsFrom = event.pageIndex * event.pageSize;
-    let itemsTo = itemsFrom + event.pageSize;
-
-    this.displayLimit = map((items: any[]) => {
-      return items.slice(itemsFrom, itemsTo);
-    });
+    this.from = event.pageIndex * event.pageSize;
+    this.to = this.from + event.pageSize;
 
     this.emit();
   }
@@ -174,19 +166,19 @@ export class FilterComponent implements OnInit {
   }
 
   private emit(): void {
-    this.toDisplay$ = this.dataSource$.pipe(
-      map(entries => {
-        this.conditions.forEach(condition => {
-          entries = entries.filter(condition);
-        })
-        return entries;
-      })
-    );
+    let aggregatedCondition = entry => {
+      let display = true;
+      for (let condition of this.conditions) {
+        display = condition(entry)
+        if (!display) {
+          break;
+        }
+      }
+      return display;
+    }
 
-    this.pageEmitter.emit(
-      this.toDisplay$.pipe(
-        this.displayLimit
-      )
-    );
+    this.toDisplay = this.dataSource.filter(aggregatedCondition);
+
+    this.filterChange.emit(this.toDisplay.slice(this.from, this.to));
   }
 }

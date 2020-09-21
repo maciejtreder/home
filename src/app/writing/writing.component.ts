@@ -17,7 +17,7 @@ export class WritingComponent implements OnInit {
   constructor(private cs: ContentService, private ga: GoogleAnalyticsService) { }
 
   public posts = this.cs.getWriting();
-  public display: Observable<Post[]>;
+  public display: Post[];
 
   ngOnInit(): void {
   }
@@ -29,4 +29,8 @@ export class WritingComponent implements OnInit {
   public listRefined(event): void {
     this.display = event;
   }
+
+  // public listRefined2(event): void {
+  //   console.log('list refined');
+  // }
 }
