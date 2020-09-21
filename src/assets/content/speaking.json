@@ -36,6 +36,18 @@
         "date": 1597795200
     },
     {
+        "title": "WT* is JWT",
+        "for": "ApiDays NYC",
+        "place": "online",
+        "description": "<p>JWT, JWKS, JOSE header etc. etc. etc. Do you feel lost in all of that shortcuts? This session explains in simple way what is JSON Web Token and how you can utilize them in your daily job.</p>",
+        "pictureMain": "jwt.jpeg",
+        "picture": ["jwt.jpeg"],
+        "video": "https://www.youtube.com/watch?v=grbWR4_2hIs",
+        "slides": "https://speakerdeck.com/maciejtreder/wt-star-is-jwt",
+        "keywords": ["jwt", "network", "microservices", "jws", "jwe"],
+        "date": 1598659200
+    },
+    {
         "title": "Asynchronous and Synchronous JavaScript. There and back again",
         "for": "Web Directions Code",
         "place": "Melbourne, Australia / online",
