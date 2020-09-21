@@ -1,69 +1,71 @@
-<div class="up">
-  <div>
-    <a  (click)="animateFilters()" >
-      <span class="material-icons folded" [@button]="buttonState">
-        filter_list
-      </span>
-      {{buttonState}} filters
-    </a>
-    
-  </div>
+<div class="wrapper" [ngClass]="{fixed: !!(fixed$ | async)}" #top>
+  <div class="up" >
+    <div>
+      <a  (click)="animateFilters()" >
+        <span class="material-icons folded" [@button]="buttonState">
+          filter_list
+        </span>
+        {{buttonState}} filters
+      </a>
+      
+    </div>
 
-  <mat-paginator [length]="toDisplay?.length"
-    [pageSize]="5"
-    [pageSizeOptions]="[5,10,25]"
-    (page)="pageEvent($event)">
-  </mat-paginator>
-</div>
-<form [formGroup]="filterForm" [@form]="formState" (@form.done)="animationDone($event)">
-  <div *ngIf="forFieldName == 'event'" class="checkbox">
-      <mat-checkbox formControlName="video">video</mat-checkbox>
-      <mat-checkbox formControlName="slides">slides</mat-checkbox>
+    <mat-paginator [length]="toDisplay?.length"
+      [pageSize]="5"
+      [pageSizeOptions]="[5,10,25]"
+      (page)="pageEvent($event)">
+    </mat-paginator>
   </div>
-  <div>
-    <mat-form-field >
-        <mat-label>title</mat-label>
-        <input matInput type="text" formControlName="title" autocomplete="false">
-        <button mat-button *ngIf="filterForm.controls['title'].value" matSuffix mat-icon-button aria-label="Clear" (click)="filterForm.controls['title'].reset()">
-          <mat-icon>close</mat-icon>
-        </button>
-    </mat-form-field>
-    <mat-form-field>
-        <input type="text"
-                [placeholder]="forFieldName"
-                matInput
-                formControlName="publisher"
-                [matAutocomplete]="auto1">
-        <button mat-button *ngIf="filterForm.controls['publisher'].value" matSuffix mat-icon-button aria-label="Clear" (click)="filterForm.controls['publisher'].reset()">
+  <form [formGroup]="filterForm" [@form]="formState" (@form.done)="animationDone($event)">
+    <div *ngIf="forFieldName == 'event'" class="checkbox">
+        <mat-checkbox formControlName="video">video</mat-checkbox>
+        <mat-checkbox formControlName="slides">slides</mat-checkbox>
+    </div>
+    <div>
+      <mat-form-field >
+          <mat-label>title</mat-label>
+          <input matInput type="text" formControlName="title" autocomplete="false">
+          <button mat-button *ngIf="filterForm.controls['title'].value" matSuffix mat-icon-button aria-label="Clear" (click)="filterForm.controls['title'].reset()">
             <mat-icon>close</mat-icon>
-        </button>
-        <mat-autocomplete autoActiveFirstOption #auto1="matAutocomplete">
-          <mat-option *ngFor="let option of filteredPublishers$ | async" [value]="option">
-            {{option}}
+          </button>
+      </mat-form-field>
+      <mat-form-field>
+          <input type="text"
+                  [placeholder]="forFieldName"
+                  matInput
+                  formControlName="publisher"
+                  [matAutocomplete]="auto1">
+          <button mat-button *ngIf="filterForm.controls['publisher'].value" matSuffix mat-icon-button aria-label="Clear" (click)="filterForm.controls['publisher'].reset()">
+              <mat-icon>close</mat-icon>
+          </button>
+          <mat-autocomplete autoActiveFirstOption #auto1="matAutocomplete">
+            <mat-option *ngFor="let option of filteredPublishers$ | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+      </mat-form-field>
+    </div>
+    <mat-form-field >
+        <mat-chip-list #chipList >
+          <mat-chip
+            *ngFor="let tag of selectedTags"
+            [removable]="true"
+            [selectable]="true"
+            (removed)="remove(tag)">
+            {{tag}}
+            <mat-icon matChipRemove >cancel</mat-icon>
+          </mat-chip>
+          <input
+            placeholder="hashtag"
+            formControlName="hashtags"
+            [matAutocomplete]="auto2"
+            [matChipInputFor]="chipList">
+        </mat-chip-list>
+        <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="selectedTag($event)">
+          <mat-option *ngFor="let tag of filteredTags$ | async" [value]="tag">
+            {{tag}}
           </mat-option>
         </mat-autocomplete>
     </mat-form-field>
-  </div>
-  <mat-form-field >
-      <mat-chip-list #chipList >
-        <mat-chip
-          *ngFor="let tag of selectedTags"
-          [removable]="true"
-          [selectable]="true"
-          (removed)="remove(tag)">
-          {{tag}}
-          <mat-icon matChipRemove >cancel</mat-icon>
-        </mat-chip>
-        <input
-          placeholder="hashtag"
-          formControlName="hashtags"
-          [matAutocomplete]="auto2"
-          [matChipInputFor]="chipList">
-      </mat-chip-list>
-      <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="selectedTag($event)">
-        <mat-option *ngFor="let tag of filteredTags$ | async" [value]="tag">
-          {{tag}}
-        </mat-option>
-      </mat-autocomplete>
-  </mat-form-field>
-</form>
+  </form>
+</div>

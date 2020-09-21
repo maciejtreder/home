@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { PageEvent } from '@angular/material/paginator';
-import { Observable } from 'rxjs';
-import { debounceTime, map, startWith } from 'rxjs/operators';
+import { fromEvent, Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, startWith } from 'rxjs/operators';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
@@ -41,6 +41,9 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 })
 export class FilterComponent {
 
+  @ViewChild('top')
+  private topDiv: ElementRef;
+
   public buttonState = "show"
   public formState = "hidden"
 
@@ -55,6 +58,11 @@ export class FilterComponent {
     } else if (this.formState == "folded") {
       this.formState = "hidden"
     }
+    this.setHeight();
+  }
+
+  private setHeight() {
+    this.height = this.topDiv.nativeElement.offsetHeight + 'px'
   }
 
   @Input('source')
@@ -62,6 +70,9 @@ export class FilterComponent {
 
   @Output('filterChange')
   public filterChange = new EventEmitter<any[]>();
+
+  @HostBinding('style.height')
+  private height: string = '';
 
   private from: number = 0;
   private to: number = 5;
@@ -87,7 +98,19 @@ export class FilterComponent {
 
   private conditions: any[] = [];
 
+  public fixed$: Observable<boolean>;
+
   constructor() { }
+
+  ngAfterViewInit() {
+    const topPosition = this.topDiv.nativeElement.offsetTop;
+    this.fixed$ = fromEvent(window, 'scroll').pipe(
+      map(() => window.pageYOffset > topPosition),
+      distinctUntilChanged()
+    );
+    // this.setHeight();
+  }
+
 
   ngOnChanges(): void {
     if (!this.dataSource) {

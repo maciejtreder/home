@@ -1,5 +1,15 @@
+.wrapper.fixed {
+    position:fixed;
+    top:0px;
+    width: inherit;
+    background: #efefef;
+}
+
+
 :host {
-    width: inherit;   
+    width: inherit;
+    background: #efefef;
+    padding-bottom: 15px;
 }
 
 mat-form-field + mat-form-field {
