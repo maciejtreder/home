@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { PageEvent } from '@angular/material/paginator';
@@ -71,7 +71,9 @@ export class FilterComponent {
   public filterForm: FormGroup = new FormGroup({
     title: new FormControl(''),
     publisher: new FormControl(''),
-    hashtags: new FormControl('')
+    hashtags: new FormControl(''),
+    video: new FormControl(false),
+    slides: new FormControl(false)
   });
 
   public publishers: string[];
@@ -81,6 +83,8 @@ export class FilterComponent {
   public filteredTags$: Observable<string[]>;
   public selectedTags:string[] = [];
 
+  public forFieldName: string;
+
   private conditions: any[] = [];
 
   constructor() { }
@@ -89,6 +93,13 @@ export class FilterComponent {
     if (!this.dataSource) {
       return;
     }
+
+    if (!!this.dataSource[0].place ) {
+      this.forFieldName = "event";
+    } else {
+      this.forFieldName = "publisher";
+    }
+
     this.publishers = this.dataSource
       .map(entry => entry.for)
       .filter((value, index, self) => self.indexOf(value) === index)
@@ -100,6 +111,7 @@ export class FilterComponent {
         return this.publishers.filter(entry => entry.toLowerCase().indexOf(filterValue) === 0);
       })
     );
+    
 
     this.hashTags = this.dataSource
       .map(entry => entry.keywords)
@@ -118,6 +130,15 @@ export class FilterComponent {
       debounceTime(500)
     ).subscribe(value => {
       this.conditions = [];
+
+      if (value.slides) {
+        this.conditions.push(entry => !!entry.slides)
+      }
+
+      if (value.video) {
+        this.conditions.push(entry => !!entry.video)
+      }
+
       if (!!value.title) {
         const title = value.title.toLowerCase();
         this.conditions.push(entry => entry.title.toLowerCase().indexOf(title) >= 0);

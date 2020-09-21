@@ -1,6 +1,8 @@
-<div class="entry" *ngFor="let speech of (speeches | async)">
+<app-filter [source]="(speeches | async)" (filterChange)="listRefined($event)"></app-filter>
+
+<div class="entry" *ngFor="let speech of display">
     <div class="header">
-        <h3>{{speech.event}}</h3>
+        <h3>{{speech.for}}</h3>
         <h4>{{speech.title}}</h4>
         <span class="date">{{speech.date | date}} | {{speech.place}}</span>
     </div>

@@ -1,6 +1,5 @@
 :host {
-    width: inherit;
-    
+    width: inherit;   
 }
 
 mat-form-field + mat-form-field {
@@ -11,6 +10,7 @@ form {
     font-size: 0.75em;
     display: flex;
     flex-direction: column;
+    padding: 0 12px;
     div {
         display: flex;
         flex-direction: row;
@@ -19,6 +19,14 @@ form {
         }
     }
     overflow: hidden;
+}
+
+mat-checkbox + mat-checkbox {
+    margin-left: 10px;
+}
+
+.checkbox {
+    padding: 8px 0;
 }
 
 

@@ -10,6 +10,7 @@ import { GoogleAnalyticsService } from '../google-analytics.service';
 export class SpeakingComponent implements OnInit {
 
   public speeches = this.cs.getSpeeches();
+  public display: any[];
 
   constructor(private cs: ContentService, private ga: GoogleAnalyticsService) { }
 
@@ -19,5 +20,8 @@ export class SpeakingComponent implements OnInit {
   public handleClick(name: string): void {
     this.ga.trackEvent(name);
   }
-
+  
+  public listRefined(event): void {
+    this.display = event;
+  }
 }
