@@ -1,0 +1,42 @@
+:host {
+    width: inherit;
+    
+}
+
+mat-form-field + mat-form-field {
+    margin-left: 10px;
+}
+
+form {
+    font-size: 0.75em;
+    display: flex;
+    flex-direction: column;
+    div {
+        display: flex;
+        flex-direction: row;
+        mat-form-field {
+            flex: 1;
+        }
+    }
+    overflow: hidden;
+}
+
+
+.up {
+    font-size: 12px;
+    display: flex;
+    flex-direction: row;
+    div {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        a {
+            display: flex;
+            align-items: center;
+            span.folded {
+                transform: rotate(-90deg)
+            }
+        }
+    }
+}
+

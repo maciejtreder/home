@@ -12,8 +12,8 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$portfolio-primary: mat-palette($mat-indigo);
-$portfolio-accent: mat-palette($mat-pink, A200, A100, A400);
+$portfolio-primary: mat-palette($mat-grey);
+$portfolio-accent: mat-palette($mat-grey, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
 $portfolio-warn: mat-palette($mat-red);
@@ -57,6 +57,7 @@ body, a {
 
 a:hover, button:hover {
     color: #111111;
+    cursor: pointer;
 }
 
 a {
@@ -104,5 +105,7 @@ h4 {
 .entry + .entry {
     margin-top: 5em;
 }
-// html, body { height: 100%; }
-// body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-paginator {
+    background: none;
+}

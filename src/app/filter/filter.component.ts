@@ -4,13 +4,58 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { PageEvent } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
 import { debounceTime, flatMap, map, startWith } from 'rxjs/operators';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-filter',
   templateUrl: './filter.component.html',
-  styleUrls: ['./filter.component.scss']
+  styleUrls: ['./filter.component.scss'],
+  animations: [
+    trigger('form', [
+      state('expanded', style({
+        opacity: '100%',
+      })),
+      state('folded', style({
+        opacity: '0%',
+      })),
+      state('hidden', style({
+        display: 'none'
+      })),
+      state('visible', style({
+        display: 'flex',
+        opacity: '0%'
+      })),
+      transition('visible => expanded', animate('500ms ease-in')),
+      transition('unfolded => folded', animate('500ms ease-out')),
+    ]),
+    trigger('button', [
+      state('show', style({
+        transform: 'rotate(-90deg)'
+      })),
+      state('hide', style({
+        transform: 'rotate(0deg)'
+      })),
+      transition('* => *', animate('500ms'))
+    ])
+  ]
 })
 export class FilterComponent implements OnInit {
+
+  public buttonState = "show"
+  public formState = "hidden"
+
+  public animateFilters(): void {
+    this.formState = this.formState == "hidden"?"visible":"folded";
+    this.buttonState = this.buttonState == "show"?"hide":"show";
+  }
+
+  public animationDone(event): void {
+    if (this.formState == "visible") {
+      this.formState = "expanded"
+    } else if (this.formState == "folded") {
+      this.formState = "hidden"
+    }
+  }
 
   @Output('output')
   public pageEmitter = new EventEmitter<Observable<any[]>>();
@@ -88,7 +133,6 @@ export class FilterComponent implements OnInit {
       }
 
       if (this.selectedTags.length > 0) {
-        console.log(this.selectedTags)
         this.conditions.push(entry => {
           let display = true;
           for (let tag of this.selectedTags) {
@@ -126,6 +170,7 @@ export class FilterComponent implements OnInit {
     if (index >= 0) {
       this.selectedTags.splice(index, 1);
     }
+    this.emit();
   }
 
   private emit(): void {
