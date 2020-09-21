@@ -57,7 +57,7 @@ export class FilterComponent {
     }
   }
 
-  @Input('source2')
+  @Input('source')
   public dataSource: any[];
 
   @Output('filterChange')
