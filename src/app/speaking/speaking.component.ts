@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 import { ContentService } from '../content.service';
 import { GoogleAnalyticsService } from '../google-analytics.service';
 
@@ -12,9 +13,15 @@ export class SpeakingComponent implements OnInit {
   public speeches = this.cs.getSpeeches();
   public display: any[];
 
+  public selectedTag$: Subject<string> = new Subject<string>();
+
   constructor(private cs: ContentService, private ga: GoogleAnalyticsService) { }
 
   ngOnInit(): void {
+  }
+
+  public selectTag(tag: string) {
+    this.selectedTag$.next(tag);
   }
 
   public handleClick(name: string): void {

@@ -7,3 +7,12 @@
     padding: 5em 0;
     width: inherit;
 }
+
+.keywords { 
+    a {
+        display: inline;
+    }
+    a + a {
+        margin-left: 4px;
+    }
+}

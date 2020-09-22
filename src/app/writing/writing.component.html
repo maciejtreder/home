@@ -1,4 +1,4 @@
-<app-filter [source]="(posts | async)" (filterChange)="listRefined($event)" ></app-filter>
+<app-filter [source]="(posts | async)" (filterChange)="listRefined($event)" [selectedTag]="selectedTag$"></app-filter>
 
 <div class="entry" *ngFor="let post of display">
     
@@ -6,5 +6,7 @@
         <a [href]="post.url" (click)="handleClick(post.url)"><h3>{{post.title}}</h3></a>
         <div class="description" [innerHtml]="post.description"></div>
     
-    <div class="keywords"><span *ngFor="let keyword of post.keywords">#{{keyword}}</span></div>    
+    <div class="keywords">
+        <a *ngFor="let keyword of post.keywords" (click)="selectTag(keyword)" routerLink="/speaking" [queryParams]="{hashtags: keyword}">#{{keyword}}</a>
+    </div>    
 </div>

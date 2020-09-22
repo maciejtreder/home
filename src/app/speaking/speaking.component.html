@@ -1,4 +1,4 @@
-<app-filter [source]="(speeches | async)" (filterChange)="listRefined($event)"></app-filter>
+<app-filter [source]="(speeches | async)" (filterChange)="listRefined($event)" [selectedTag]="selectedTag$"></app-filter>
 
 <div class="entry" *ngFor="let speech of display">
     <div class="header">
@@ -12,7 +12,7 @@
         <a class="slides" [href]="speech.slides" (click)="handleClick(speech.event + ' ' + speech.title + 'slides')">>> see the slides</a>
         <a class="slides" *ngIf="speech.vid" [href]="speech.vid" (click)="handleClick(speech.event + ' ' + speech.title + 'video')">>> see the talk</a>
         <div class="keywords">
-            <span *ngFor="let keyword of speech.keywords">#{{keyword}}</span>
+            <a *ngFor="let keyword of speech.keywords" (click)="selectTag(keyword)" routerLink="/speaking" [queryParams]="{hashtags: keyword}">#{{keyword}}</a>
         </div>
     </div>
 </div>

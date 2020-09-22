@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { ContentService } from 'src/app/content.service';
 import { Post } from 'src/model/post.model';
 import { GoogleAnalyticsService } from '../google-analytics.service';
@@ -19,6 +19,8 @@ export class WritingComponent implements OnInit {
   public posts = this.cs.getWriting();
   public display: Post[];
 
+  public selectedTag$: Subject<string> = new Subject<string>();
+
   ngOnInit(): void {
   }
 
@@ -30,7 +32,7 @@ export class WritingComponent implements OnInit {
     this.display = event;
   }
 
-  // public listRefined2(event): void {
-  //   console.log('list refined');
-  // }
+  public selectTag(tag: string) {
+    this.selectedTag$.next(tag);
+  }
 }

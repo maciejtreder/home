@@ -44,6 +44,9 @@ import { isPlatformServer } from '@angular/common';
 })
 export class FilterComponent {
 
+  @Input('selectedTag')
+  public selectedTag$: Observable<string>
+
   @Input('source')
   public dataSource: any[];
 
@@ -171,6 +174,10 @@ export class FilterComponent {
     this._listenForm();
     this._fillUpForm();
 
+    this.selectedTag$.subscribe(tag => {
+      this.addTag(tag)
+    });
+
     if (!!this.dataSource[0].place ) {
       this.forFieldName = "event";
     } else {
@@ -230,7 +237,11 @@ export class FilterComponent {
   }
   
   public selectedTag(event: MatAutocompleteSelectedEvent) {
-    this.selectedTags.push(event.option.value);
+    this.addTag(event.option.value);
+  }
+
+  private addTag(tag: string) {
+    this.selectedTags.push(tag);
     this.filterForm.controls['hashtags'].setValue('');
   }
 
