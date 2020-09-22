@@ -1,10 +1,10 @@
 <app-filter [source]="(posts | async)" (filterChange)="listRefined($event)" ></app-filter>
 
 <div class="entry" *ngFor="let post of display">
-    <a [href]="post.url" (click)="handleClick(post.url)">
+    
         <div class="date">{{post.date | date}} | for {{post.for}}</div>
-        <h3>{{post.title}}</h3>
+        <a [href]="post.url" (click)="handleClick(post.url)"><h3>{{post.title}}</h3></a>
         <div class="description" [innerHtml]="post.description"></div>
-    </a>
+    
     <div class="keywords"><span *ngFor="let keyword of post.keywords">#{{keyword}}</span></div>    
 </div>

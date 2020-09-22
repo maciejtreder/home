@@ -1,10 +1,12 @@
-import { Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output, ViewChild } from '@angular/core';
+// TODO: refactor
+import { Component, ElementRef, EventEmitter, HostBinding, Input, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { PageEvent } from '@angular/material/paginator';
 import { fromEvent, Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map, startWith } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, map, startWith, take } from 'rxjs/operators';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-filter',
@@ -14,6 +16,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
     trigger('form', [
       state('expanded', style({
         opacity: '100%',
+        display: 'flex'
       })),
       state('folded', style({
         opacity: '0%',
@@ -58,11 +61,7 @@ export class FilterComponent {
     } else if (this.formState == "folded") {
       this.formState = "hidden"
     }
-    this.setHeight();
-  }
-
-  private setHeight() {
-    this.height = this.topDiv.nativeElement.offsetHeight + 'px'
+    this.height = this.topDiv.nativeElement.offsetHeight + 'px';
   }
 
   @Input('source')
@@ -100,7 +99,47 @@ export class FilterComponent {
 
   public fixed$: Observable<boolean>;
 
-  constructor() { }
+  constructor(private route: ActivatedRoute, private router: Router) { }
+
+  public ngOnInit(): void {
+    this.filterForm.valueChanges.pipe(
+      debounceTime(500)
+    ).subscribe(value => {
+      this.conditions = [];
+
+      const queryParams = {
+        title: value.title,
+        publisher: value.publisher,
+        video: value.video,
+        slides: value.slides,
+        hashtags: this.selectedTags
+      };
+
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: queryParams
+      })
+
+      this.refineList(value);
+      
+    });
+
+    this.route.queryParams.pipe(take(1)).subscribe(params => {
+      if (!!params.hashtags) {
+        this.selectedTags = this.selectedTags.concat(params.hashtags)
+      }
+      this.filterForm.patchValue({
+        title: params.title,
+        publisher: params.publisher,
+        video: params.video == "true",
+        slides: params.slides == "true",
+      })
+
+      if (!!params.hashtags || params.video == "true" || params.slides == "true" || !!params.title || !!params.publisher) {
+        this.animateFilters()
+      }
+    });
+  }
 
   ngAfterViewInit() {
     const topPosition = this.topDiv.nativeElement.offsetTop;
@@ -108,9 +147,7 @@ export class FilterComponent {
       map(() => window.pageYOffset > topPosition),
       distinctUntilChanged()
     );
-    // this.setHeight();
   }
-
 
   ngOnChanges(): void {
     if (!this.dataSource) {
@@ -148,43 +185,38 @@ export class FilterComponent {
       }),
       map(entries => entries.filter(entry => !this.selectedTags.includes(entry)))
     );
+  }
 
-    this.filterForm.valueChanges.pipe(
-      debounceTime(500)
-    ).subscribe(value => {
-      this.conditions = [];
+  private refineList(value) {
+    if (value.slides) {
+      this.conditions.push(entry => !!entry.slides)
+    }
 
-      if (value.slides) {
-        this.conditions.push(entry => !!entry.slides)
-      }
+    if (value.video) {
+      this.conditions.push(entry => !!entry.video)
+    }
 
-      if (value.video) {
-        this.conditions.push(entry => !!entry.video)
-      }
+    if (!!value.title) {
+      const title = value.title.toLowerCase();
+      this.conditions.push(entry => entry.title.toLowerCase().indexOf(title) >= 0);
+    }
 
-      if (!!value.title) {
-        const title = value.title.toLowerCase();
-        this.conditions.push(entry => entry.title.toLowerCase().indexOf(title) >= 0);
-      }
+    if (!!value.publisher) {
+      const publisher = value.publisher.toLowerCase();
+      this.conditions.push(entry => entry.for.toLowerCase().indexOf(publisher) >= 0);
+    }
 
-      if (!!value.publisher) {
-        const publisher = value.publisher.toLowerCase();
-        this.conditions.push(entry => entry.for.toLowerCase().indexOf(publisher) >= 0);
-      }
-
-      if (this.selectedTags.length > 0) {
-        this.conditions.push(entry => {
-          let display = true;
-          for (let tag of this.selectedTags) {
-            display = entry.keywords.includes(tag);
-            if (!display)
-              break;
-          }
-          return display;
-        });
-      }
-      this.emit();
-    });
+    if (this.selectedTags.length > 0) {
+      this.conditions.push(entry => {
+        let display = true;
+        for (let tag of this.selectedTags) {
+          display = entry.keywords.includes(tag);
+          if (!display)
+            break;
+        }
+        return display;
+      });
+    }
     this.emit();
   }
   
@@ -205,6 +237,7 @@ export class FilterComponent {
 
     if (index >= 0) {
       this.selectedTags.splice(index, 1);
+      this.filterForm.controls['hashtags'].setValue('')
     }
     this.emit();
   }
