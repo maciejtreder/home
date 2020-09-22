@@ -1,5 +1,5 @@
 // TODO: refactor
-import { Component, ElementRef, EventEmitter, HostBinding, Inject, Input, Output, PLATFORM_ID, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostBinding, Inject, Input, Output, PLATFORM_ID, ViewChild, ɵCompiler_compileModuleSync__POST_R3__ } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { PageEvent } from '@angular/material/paginator';
@@ -17,7 +17,6 @@ import { isPlatformServer } from '@angular/common';
     trigger('form', [
       state('expanded', style({
         opacity: '100%',
-        display: 'flex'
       })),
       state('folded', style({
         opacity: '0%',
@@ -45,8 +44,22 @@ import { isPlatformServer } from '@angular/common';
 })
 export class FilterComponent {
 
+  @Input('source')
+  public dataSource: any[];
+
+  @Output('filterChange')
+  public filterChange = new EventEmitter<any[]>();
+
+  constructor(private route: ActivatedRoute, private router: Router, @Inject(PLATFORM_ID) private platformId: any) { }
+
+  // animations
+  public fixed$: Observable<boolean>;
+
   @ViewChild('top')
   private topDiv: ElementRef;
+
+  @HostBinding('style.height')
+  private height: string = '';
 
   public buttonState = "show"
   public formState = "hidden"
@@ -65,20 +78,30 @@ export class FilterComponent {
     this.height = this.topDiv.nativeElement.offsetHeight + 'px';
   }
 
-  @Input('source')
-  public dataSource: any[];
+  private _setstickyFilters():void {
+    if (isPlatformServer(this.platformId)) {
+      return;
+    }
+    const topPosition = this.topDiv.nativeElement.offsetTop;
+    this.fixed$ = fromEvent(window, 'scroll').pipe(
+      map(() => window.pageYOffset > topPosition),
+      distinctUntilChanged()
+    );
+  }
 
-  @Output('filterChange')
-  public filterChange = new EventEmitter<any[]>();
-
-  @HostBinding('style.height')
-  private height: string = '';
-
+  //pagination
   private from: number = 0;
   private to: number = 5;
 
   public toDisplay: any[];
 
+  public pageEvent(event: PageEvent) {
+    this.from = event.pageIndex * event.pageSize;
+    this.to = this.from + event.pageSize;
+    this.emit();
+  }
+
+  //filter
   public filterForm: FormGroup = new FormGroup({
     title: new FormControl(''),
     publisher: new FormControl(''),
@@ -98,37 +121,32 @@ export class FilterComponent {
 
   private conditions: any[] = [];
 
-  public fixed$: Observable<boolean>;
-
-  constructor(private route: ActivatedRoute, private router: Router, @Inject(PLATFORM_ID) private platformId: any) { }
-
-  public ngOnInit(): void {
-    this.filterForm.valueChanges.pipe(
-      debounceTime(500)
-    ).subscribe(value => {
+  private _listenForm():void {
+    this.filterForm.valueChanges.subscribe(value => {
       this.conditions = [];
 
       const queryParams = {
-        title: value.title,
-        publisher: value.publisher,
-        video: value.video,
-        slides: value.slides,
+        title: !!value.title?value.title:'',
+        publisher: !!value.publisher?value.publisher:'',
+        video: !!value.video,
+        slides: !!value.slides,
         hashtags: this.selectedTags
       };
 
       this.router.navigate([], {
         relativeTo: this.route,
         queryParams: queryParams
-      })
-
-      this.refineList(value);
-      
+      });
+      this.refineList(queryParams);
     });
+  }
 
+  private _fillUpForm(): void {
     this.route.queryParams.pipe(take(1)).subscribe(params => {
       if (!!params.hashtags) {
         this.selectedTags = this.selectedTags.concat(params.hashtags)
       }
+      
       this.filterForm.patchValue({
         title: params.title,
         publisher: params.publisher,
@@ -143,20 +161,15 @@ export class FilterComponent {
   }
 
   ngAfterViewInit() {
-    if (isPlatformServer(this.platformId)) {
-      return;
-    }
-    const topPosition = this.topDiv.nativeElement.offsetTop;
-    this.fixed$ = fromEvent(window, 'scroll').pipe(
-      map(() => window.pageYOffset > topPosition),
-      distinctUntilChanged()
-    );
+    this._setstickyFilters()
   }
 
   ngOnChanges(): void {
     if (!this.dataSource) {
       return;
     }
+    this._listenForm();
+    this._fillUpForm();
 
     if (!!this.dataSource[0].place ) {
       this.forFieldName = "event";
@@ -176,7 +189,6 @@ export class FilterComponent {
       })
     );
     
-
     this.hashTags = this.dataSource
       .map(entry => entry.keywords)
       .reduce((all, current) => all.concat(current))
@@ -200,20 +212,13 @@ export class FilterComponent {
       this.conditions.push(entry => !!entry.video)
     }
 
-    if (!!value.title) {
-      const title = value.title.toLowerCase();
-      this.conditions.push(entry => entry.title.toLowerCase().indexOf(title) >= 0);
-    }
+    this.conditions.push(entry => entry.title.toLowerCase().indexOf(value.title.toLowerCase()) >= 0);
+    this.conditions.push(entry => entry.for.toLowerCase().indexOf(value.publisher.toLowerCase()) >= 0);
 
-    if (!!value.publisher) {
-      const publisher = value.publisher.toLowerCase();
-      this.conditions.push(entry => entry.for.toLowerCase().indexOf(publisher) >= 0);
-    }
-
-    if (this.selectedTags.length > 0) {
+    if (value.hashtags.length > 0) {
       this.conditions.push(entry => {
         let display = true;
-        for (let tag of this.selectedTags) {
+        for (let tag of value.hashtags) {
           display = entry.keywords.includes(tag);
           if (!display)
             break;
@@ -224,13 +229,6 @@ export class FilterComponent {
     this.emit();
   }
   
-  public pageEvent(event: PageEvent) {
-    this.from = event.pageIndex * event.pageSize;
-    this.to = this.from + event.pageSize;
-
-    this.emit();
-  }
-
   public selectedTag(event: MatAutocompleteSelectedEvent) {
     this.selectedTags.push(event.option.value);
     this.filterForm.controls['hashtags'].setValue('');

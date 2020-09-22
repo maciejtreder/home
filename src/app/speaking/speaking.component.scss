@@ -4,11 +4,10 @@ img {
     width: 400px;
     box-shadow: 1px 1px 10px #cccccc;
     margin-left: 10px;
+    z-index: -1;
+    position: relative;
 }
 
-// .entry {
-//     display: flex;
-// }
 .about {
     padding-top: 0.8em;
 }
