@@ -1,5 +1,5 @@
 // TODO: refactor
-import { Component, ElementRef, EventEmitter, HostBinding, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostBinding, Inject, Input, Output, PLATFORM_ID, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { PageEvent } from '@angular/material/paginator';
@@ -7,6 +7,7 @@ import { fromEvent, Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, startWith, take } from 'rxjs/operators';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ActivatedRoute, Router } from '@angular/router';
+import { isPlatformServer } from '@angular/common';
 
 @Component({
   selector: 'app-filter',
@@ -99,7 +100,7 @@ export class FilterComponent {
 
   public fixed$: Observable<boolean>;
 
-  constructor(private route: ActivatedRoute, private router: Router) { }
+  constructor(private route: ActivatedRoute, private router: Router, @Inject(PLATFORM_ID) private platformId: any) { }
 
   public ngOnInit(): void {
     this.filterForm.valueChanges.pipe(
@@ -142,6 +143,9 @@ export class FilterComponent {
   }
 
   ngAfterViewInit() {
+    if (isPlatformServer(this.platformId)) {
+      return;
+    }
     const topPosition = this.topDiv.nativeElement.offsetTop;
     this.fixed$ = fromEvent(window, 'scroll').pipe(
       map(() => window.pageYOffset > topPosition),
