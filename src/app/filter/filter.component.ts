@@ -167,11 +167,19 @@ export class FilterComponent {
         queryParams: value
       });
 
-      if (!!this.dataSource) {
+ 
 
+      if (!!this.dataSource) {
         const test = entry => {
-          const slides = value.slides == !!entry.slides;
-          const video = value.video == !!entry.video;
+          let slides = true;
+          if (value.slides) {
+            slides = !!entry.slides;
+          }
+
+          let video = true;
+          if (value.video) {
+            video = !!entry.video;
+          }
           const title = entry.title.toLowerCase().indexOf(value.title.toLowerCase()) >= 0;
           const publisher = entry.for.toLowerCase().indexOf(value.publisher.toLowerCase()) >= 0;
 
@@ -184,7 +192,6 @@ export class FilterComponent {
           }
           return slides && video && title && publisher && tags;
         }
-
         this.filteredList$.next(this.dataSource.filter(test))
       }
     });
@@ -218,7 +225,6 @@ export class FilterComponent {
     if (!this.dataSource) {
       return;
     }
-
     this._filterStatus$.next(this.filterStatus);
 
     if (!!this.dataSource[0].place ) {

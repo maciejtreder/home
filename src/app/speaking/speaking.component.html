@@ -10,7 +10,7 @@
     <div class="about">
         <div class="description" [innerHtml]="speech.description"></div>
         <a class="slides" [href]="speech.slides" (click)="handleClick(speech.event + ' ' + speech.title + 'slides')">>> see the slides</a>
-        <a class="slides" *ngIf="speech.vid" [href]="speech.vid" (click)="handleClick(speech.event + ' ' + speech.title + 'video')">>> see the talk</a>
+        <a class="slides" *ngIf="speech.video" [href]="speech.video" (click)="handleClick(speech.event + ' ' + speech.title + 'video')">>> see the talk</a>
         <div class="keywords">
             <a *ngFor="let keyword of speech.keywords" (click)="selectTag(keyword)" routerLink="/speaking" [queryParams]="{hashtags: keyword}">#{{keyword}}</a>
         </div>
