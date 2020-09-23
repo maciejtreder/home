@@ -3,8 +3,8 @@ import { Component, ElementRef, EventEmitter, HostBinding, Inject, Input, Output
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { PageEvent } from '@angular/material/paginator';
-import { fromEvent, Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map, startWith, take } from 'rxjs/operators';
+import { fromEvent, Observable, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, startWith, take, tap } from 'rxjs/operators';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ActivatedRoute, Router } from '@angular/router';
 import { isPlatformServer } from '@angular/common';
@@ -113,6 +113,8 @@ export class FilterComponent {
     slides: new FormControl(false)
   });
 
+  
+
   public publishers: string[];
   public filteredPublishers$: Observable<string[]>;
 
@@ -125,6 +127,7 @@ export class FilterComponent {
   private conditions: any[] = [];
 
   private _listenForm():void {
+    
     this.filterForm.valueChanges.subscribe(value => {
       this.conditions = [];
 
@@ -174,8 +177,14 @@ export class FilterComponent {
     this._listenForm();
     this._fillUpForm();
 
+    this._filteredValues();
+
     this.selectedTag$.subscribe(tag => {
+      this.selectedTags = [];
       this.addTag(tag)
+      if (this.formState != "expanded") {
+        this.animateFilters()
+      }
     });
 
     if (!!this.dataSource[0].place ) {
@@ -188,18 +197,21 @@ export class FilterComponent {
       .map(entry => entry.for)
       .filter((value, index, self) => self.indexOf(value) === index)
 
+    this.hashTags = this.dataSource
+      .map(entry => entry.keywords)
+      .reduce((all, current) => all.concat(current))
+      .filter((value, index, self) => self.indexOf(value) === index)
+  }
+
+  private _filteredValues() {
     this.filteredPublishers$ = this.filterForm.controls['publisher'].valueChanges.pipe(
+      tap(console.log),
       startWith(''),
       map(value => {
         const filterValue = value? value.toLowerCase() : '';
         return this.publishers.filter(entry => entry.toLowerCase().indexOf(filterValue) === 0);
       })
     );
-    
-    this.hashTags = this.dataSource
-      .map(entry => entry.keywords)
-      .reduce((all, current) => all.concat(current))
-      .filter((value, index, self) => self.indexOf(value) === index)
 
     this.filteredTags$ = this.filterForm.controls['hashtags'].valueChanges.pipe(
       startWith(''),
@@ -241,8 +253,9 @@ export class FilterComponent {
   }
 
   private addTag(tag: string) {
+    console.log('add tag')
     this.selectedTags.push(tag);
-    this.filterForm.controls['hashtags'].setValue('');
+    this.filterForm.controls['hashtags'].patchValue('');
   }
 
   public remove(tag: string) {
@@ -250,7 +263,7 @@ export class FilterComponent {
 
     if (index >= 0) {
       this.selectedTags.splice(index, 1);
-      this.filterForm.controls['hashtags'].setValue('')
+      this.filterForm.controls['hashtags'].patchValue('')
     }
     this.emit();
   }
@@ -270,5 +283,11 @@ export class FilterComponent {
     this.toDisplay = this.dataSource.filter(aggregatedCondition);
 
     this.filterChange.emit(this.toDisplay.slice(this.from, this.to));
+  }
+
+  public clearTags(): void {
+    for (let i = this.selectedTags.length - 1; i >= 0; i--) {
+      this.remove(this.selectedTags[i])
+    }
   }
 }

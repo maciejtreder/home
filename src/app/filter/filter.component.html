@@ -60,6 +60,9 @@
             formControlName="hashtags"
             [matAutocomplete]="auto2"
             [matChipInputFor]="chipList">
+            <button mat-button *ngIf="selectedTags.length > 0" matSuffix mat-icon-button aria-label="Clear" (click)="clearTags()">
+              <mat-icon>close</mat-icon>
+          </button>
         </mat-chip-list>
         <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="selectedTag($event)">
           <mat-option *ngFor="let tag of filteredTags$ | async" [value]="tag">
