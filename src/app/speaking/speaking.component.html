@@ -1,18 +1,18 @@
-<app-filter [source]="(speeches | async)" (filterChange)="listRefined($event)" [selectedTag]="selectedTag$"></app-filter>
+<app-filter [source]="(speaches | async)" (filterChange)="listRefined($event)" [selectedTag]="selectedTag$"></app-filter>
 
-<div class="entry" *ngFor="let speech of display">
+<div class="entry" *ngFor="let speach of display">
     <div class="header">
-        <h3>{{speech.for}}</h3>
-        <h4>{{speech.title}}</h4>
-        <span class="date">{{speech.date | date}} | {{speech.place}}</span>
+        <h3>{{speach.for}}</h3>
+        <h4>{{speach.title}}</h4>
+        <span class="date">{{speach.date | date}} | {{speach.place}}</span>
     </div>
-    <img src="assets/img/speaking/{{speech.pictureMain}}" />
+    <img src="assets/img/speaking/{{speach.pictureMain}}" />
     <div class="about">
-        <div class="description" [innerHtml]="speech.description"></div>
-        <a class="slides" [href]="speech.slides" (click)="handleClick(speech.event + ' ' + speech.title + 'slides')">>> see the slides</a>
-        <a class="slides" *ngIf="speech.video" [href]="speech.video" (click)="handleClick(speech.event + ' ' + speech.title + 'video')">>> see the talk</a>
+        <div class="description" [innerHtml]="speach.description"></div>
+        <a class="slides" [href]="speach.slides" (click)="handleClick(speach.event + ' ' + speach.title + 'slides')">>> see the slides</a>
+        <a class="slides" *ngIf="speach.video" [href]="speach.video" (click)="handleClick(speach.event + ' ' + speach.title + 'video')">>> see the talk</a>
         <div class="keywords">
-            <a *ngFor="let keyword of speech.keywords" (click)="selectTag(keyword)" routerLink="/speaking" [queryParams]="{hashtags: keyword}">#{{keyword}}</a>
+            <a *ngFor="let keyword of speach.keywords" (click)="selectTag(keyword)" routerLink="/speaking" [queryParams]="{hashtags: keyword}">#{{keyword}}</a>
         </div>
     </div>
 </div>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, merge } from 'rxjs';
 import * as fs from 'fs';
 import { StateKey, TransferState } from '@angular/platform-browser';
 import { map, tap } from 'rxjs/operators';
@@ -16,6 +16,7 @@ export class ContentServerService extends ContentService {
 
   constructor(private tss: TransferState) {
     super(null, null)
+    this.loadFiles().subscribe();
   }
 
   public getWriting(): Observable<Post[]> {
@@ -24,6 +25,13 @@ export class ContentServerService extends ContentService {
 
   public getSpeaches(): Observable<Speech[]> {
     return this.getFromFile<Speech>(StateKeys.SPEECHES, 'speaking');
+  }
+
+  private loadFiles(): Observable<any> {
+    return merge(
+      this.getFromFile<Speech>(StateKeys.SPEECHES, 'speaking'),
+      this.getFromFile<Post>(StateKeys.POSTS, 'writing')
+    )
   }
 
   private getFromFile<T extends WithDate>(key: StateKey<T[]>, endpoint: string):Observable<T[]> {
@@ -37,6 +45,4 @@ export class ContentServerService extends ContentService {
       tap(value => this.tss.set(key, value))
     );
   }
-
-
 }

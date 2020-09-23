@@ -167,8 +167,6 @@ export class FilterComponent {
         queryParams: value
       });
 
- 
-
       if (!!this.dataSource) {
         const test = entry => {
           let slides = true;
@@ -192,6 +190,7 @@ export class FilterComponent {
           }
           return slides && video && title && publisher && tags;
         }
+        
         this.filteredList$.next(this.dataSource.filter(test))
       }
     });

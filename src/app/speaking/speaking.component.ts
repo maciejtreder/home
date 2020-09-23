@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
-import { ContentService } from '../content.service';
+import { ContentService } from 'src/app/content.service';
 import { GoogleAnalyticsService } from '../google-analytics.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { GoogleAnalyticsService } from '../google-analytics.service';
 })
 export class SpeakingComponent implements OnInit {
 
-  public speeches = this.cs.getSpeeches();
+  public speaches = this.cs.getSpeaches();
   public display: any[];
 
   public selectedTag$: Subject<string> = new Subject<string>();

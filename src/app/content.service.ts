@@ -13,7 +13,8 @@ import { Speech } from 'src/model/speech.model';
 })
 export class ContentService {
 
-  constructor(private http: HttpClient, private ts: TransferState) { }
+  constructor(private http: HttpClient, private ts: TransferState) {
+  }
 
   private url: string = '/assets/content/';
 
@@ -21,13 +22,19 @@ export class ContentService {
     return this.getFromTS<Post>(StateKeys.POSTS, 'writing');
   }
 
-  public getSpeeches(): Observable<Speech[]> {
+  public getSpeaches(): Observable<Speech[]> {
     return this.getFromTS<Speech>(StateKeys.SPEECHES, 'speaking');
   }
 
   private getFromTS<T extends WithDate>(key: StateKey<T[]>, endpoint: string):Observable<T[]> {
     if (this.ts.hasKey(key)) {
-      return of(this.ts.get<T[]>(key, null));
+      return new Observable(observer => {
+        setTimeout(() => {
+          observer.next(this.ts.get<T[]>(key, null));
+          observer.complete();
+        }, 0);
+      })
+      // return of(this.ts.get<T[]>(key, null));
     } else {
       return this.http.get<T[]>(`${this.url}${endpoint}.json`).pipe(
         map((items: T[]) => this.convertDate(items)),
