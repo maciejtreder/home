@@ -1,10 +1,9 @@
-// TODO: refactor
-import { Component, ElementRef, EventEmitter, HostBinding, Inject, Input, Output, PLATFORM_ID, ViewChild, ɵCompiler_compileModuleSync__POST_R3__ } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostBinding, Inject, Input, Output, PLATFORM_ID, ViewChild, } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { PageEvent } from '@angular/material/paginator';
-import { fromEvent, Observable, Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map, startWith, take, tap } from 'rxjs/operators';
+import { fromEvent, Observable, Subject, combineLatest, merge } from 'rxjs';
+import { distinctUntilChanged, map, take, flatMap } from 'rxjs/operators';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ActivatedRoute, Router } from '@angular/router';
 import { isPlatformServer } from '@angular/common';
@@ -60,6 +59,8 @@ export class FilterComponent {
 
   @ViewChild('top')
   private topDiv: ElementRef;
+  
+  @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
 
   @HostBinding('style.height')
   private height: string = '';
@@ -93,15 +94,10 @@ export class FilterComponent {
   }
 
   //pagination
-  private from: number = 0;
-  private to: number = 5;
-
-  public toDisplay: any[];
-
   public pageEvent(event: PageEvent) {
-    this.from = event.pageIndex * event.pageSize;
-    this.to = this.from + event.pageSize;
-    this.emit();
+    this.filterStatus.start = event.pageIndex * event.pageSize;
+    this.filterStatus.size = event.pageSize;
+    this._filterStatus$.next(this.filterStatus);
   }
 
   //filter
@@ -113,139 +109,123 @@ export class FilterComponent {
     slides: new FormControl(false)
   });
 
-  
-
-  public publishers: string[];
-  public filteredPublishers$: Observable<string[]>;
-
-  public hashTags: string[];
-  public filteredTags$: Observable<string[]>;
-  public selectedTags:string[] = [];
-
   public forFieldName: string;
-
-  private conditions: any[] = [];
-
-  private _listenForm():void {
-    
-    this.filterForm.valueChanges.subscribe(value => {
-      this.conditions = [];
-
-      const queryParams = {
-        title: !!value.title?value.title:'',
-        publisher: !!value.publisher?value.publisher:'',
-        video: !!value.video,
-        slides: !!value.slides,
-        hashtags: this.selectedTags
-      };
-
-      this.router.navigate([], {
-        relativeTo: this.route,
-        queryParams: queryParams
-      });
-      this.refineList(queryParams);
-    });
+  public filterStatus: any = {
+    title: '',
+    publisher: '',
+    hashtags: [],
+    video: false,
+    slides: false,
+    start: 0,
+    size: 5
   }
+  private _filterStatus$: Subject<any> = new Subject<any>();
 
-  private _fillUpForm(): void {
-    this.route.queryParams.pipe(take(1)).subscribe(params => {
-      if (!!params.hashtags) {
-        this.selectedTags = this.selectedTags.concat(params.hashtags)
-      }
-      
-      this.filterForm.patchValue({
-        title: params.title,
-        publisher: params.publisher,
-        video: params.video == "true",
-        slides: params.slides == "true",
+  public filteredList$: Subject<any> = new Subject<any>();
+
+  public filteredPublishers$: Observable<string[]> = this.filteredList$.pipe(
+    map(entries => entries.map(entry => entry.for).filter((value, index, self) => self.indexOf(value) === index))
+  );
+
+  public availableTags$ = this.filteredList$.pipe(
+    map(entries => {
+      return entries
+        .map(entry => entry.keywords)
+        .reduce((all, current) => all.concat(current))
+        .filter((value, index, self) => self.indexOf(value) === index)
+        .filter(entry => !this.filterStatus.hashtags.includes(entry))
+    })
+  );
+
+  public filteredTags$: Observable<string[]> = merge(
+    this.availableTags$,
+    this.filterForm.controls['hashtags'].valueChanges.pipe(
+      flatMap(enteredValue => {
+        return this.availableTags$.pipe(
+          map(entries => entries.filter(entry => entry.indexOf(enteredValue.toLowerCase()) >= 0))
+        )
       })
+    )
+  );
 
-      if (!!params.hashtags || params.video == "true" || params.slides == "true" || !!params.title || !!params.publisher) {
-        this.animateFilters()
-      }
-    });
-  }
-
-  ngAfterViewInit() {
-    this._setstickyFilters()
-  }
-
-  ngOnChanges(): void {
-    if (!this.dataSource) {
-      return;
-    }
-    this._listenForm();
-    this._fillUpForm();
-
-    this._filteredValues();
-
+  ngOnInit() {
     this.selectedTag$.subscribe(tag => {
-      this.selectedTags = [];
+      this.clearTags();
       this.addTag(tag)
       if (this.formState != "expanded") {
         this.animateFilters()
       }
     });
 
+    combineLatest([this.filteredList$, this._filterStatus$]).subscribe(results => {
+      this.filterChange.emit(results[0].slice(results[1].start, results[1].start + results[1].size ))
+    });
+    
+    this._filterStatus$.subscribe(value => {
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: value
+      });
+
+      if (!!this.dataSource) {
+
+        const test = entry => {
+          const slides = value.slides == !!entry.slides;
+          const video = value.video == !!entry.video;
+          const title = entry.title.toLowerCase().indexOf(value.title.toLowerCase()) >= 0;
+          const publisher = entry.for.toLowerCase().indexOf(value.publisher.toLowerCase()) >= 0;
+
+          let tags = true;
+          for (let tag of value.hashtags) {
+            if (!entry.keywords.includes(tag)) {
+              tags = false;
+              break;
+            }
+          }
+          return slides && video && title && publisher && tags;
+        }
+
+        this.filteredList$.next(this.dataSource.filter(test))
+      }
+    });
+
+    this.route.queryParams.pipe(take(1)).subscribe(params => {
+      this.filterStatus.title = !!params.title?params.title:'';
+      this.filterStatus.publisher = !!params.publisher?params.publisher:'';
+      this.filterStatus.video = params.video == "true";
+      this.filterStatus.slides = params.slides == "true";
+      this.filterStatus.hashtags = !!params.hashtags?this.filterStatus.hashtags.concat(params.hashtags):[];
+      this.filterStatus.start = !!this.filterStatus.start?this.filterStatus.start : 0;
+      this.filterStatus.size = !!this.filterStatus.size?this.filterStatus.size : 5;
+
+
+      if (!!params.title || !!params.publisher || this.filterStatus.video || this.filterStatus.slides || this.filterStatus.hashtags.length > 0) {
+        this.animateFilters();
+      }
+      this.filterForm.patchValue(this.filterStatus);
+    });
+
+    this.filterForm.valueChanges.subscribe(value => {
+      this.filterStatus.title = value.title;
+      this.filterStatus.publisher = value.publisher;
+      this.filterStatus.video = value.video;
+      this.filterStatus.slides = value.slides;
+      this._filterStatus$.next(this.filterStatus);
+    })
+  }
+
+  ngOnChanges(): void {
+    if (!this.dataSource) {
+      return;
+    }
+
+    this._filterStatus$.next(this.filterStatus);
+
     if (!!this.dataSource[0].place ) {
       this.forFieldName = "event";
     } else {
       this.forFieldName = "publisher";
     }
-
-    this.publishers = this.dataSource
-      .map(entry => entry.for)
-      .filter((value, index, self) => self.indexOf(value) === index)
-
-    this.hashTags = this.dataSource
-      .map(entry => entry.keywords)
-      .reduce((all, current) => all.concat(current))
-      .filter((value, index, self) => self.indexOf(value) === index)
-  }
-
-  private _filteredValues() {
-    this.filteredPublishers$ = this.filterForm.controls['publisher'].valueChanges.pipe(
-      tap(console.log),
-      startWith(''),
-      map(value => {
-        const filterValue = value? value.toLowerCase() : '';
-        return this.publishers.filter(entry => entry.toLowerCase().indexOf(filterValue) === 0);
-      })
-    );
-
-    this.filteredTags$ = this.filterForm.controls['hashtags'].valueChanges.pipe(
-      startWith(''),
-      map(value => {
-        return this.hashTags.filter(entry => entry.toLowerCase().indexOf(value) === 0);
-      }),
-      map(entries => entries.filter(entry => !this.selectedTags.includes(entry)))
-    );
-  }
-
-  private refineList(value) {
-    if (value.slides) {
-      this.conditions.push(entry => !!entry.slides)
-    }
-
-    if (value.video) {
-      this.conditions.push(entry => !!entry.video)
-    }
-
-    this.conditions.push(entry => entry.title.toLowerCase().indexOf(value.title.toLowerCase()) >= 0);
-    this.conditions.push(entry => entry.for.toLowerCase().indexOf(value.publisher.toLowerCase()) >= 0);
-
-    if (value.hashtags.length > 0) {
-      this.conditions.push(entry => {
-        let display = true;
-        for (let tag of value.hashtags) {
-          display = entry.keywords.includes(tag);
-          if (!display)
-            break;
-        }
-        return display;
-      });
-    }
-    this.emit();
   }
   
   public selectedTag(event: MatAutocompleteSelectedEvent) {
@@ -253,41 +233,25 @@ export class FilterComponent {
   }
 
   private addTag(tag: string) {
-    console.log('add tag')
-    this.selectedTags.push(tag);
-    this.filterForm.controls['hashtags'].patchValue('');
+    this.filterStatus.hashtags.push(tag)
+    this._filterStatus$.next(this.filterStatus);
+    this.filterForm.controls['hashtags'].setValue('');
+    this.tagInput.nativeElement.value = '';
   }
 
   public remove(tag: string) {
-    const index = this.selectedTags.indexOf(tag);
+    const index = this.filterStatus.hashtags.indexOf(tag);
 
     if (index >= 0) {
-      this.selectedTags.splice(index, 1);
-      this.filterForm.controls['hashtags'].patchValue('')
+      this.filterStatus.hashtags.splice(index, 1);
+      this.filterForm.controls['hashtags'].setValue('')
     }
-    this.emit();
-  }
-
-  private emit(): void {
-    let aggregatedCondition = entry => {
-      let display = true;
-      for (let condition of this.conditions) {
-        display = condition(entry)
-        if (!display) {
-          break;
-        }
-      }
-      return display;
-    }
-
-    this.toDisplay = this.dataSource.filter(aggregatedCondition);
-
-    this.filterChange.emit(this.toDisplay.slice(this.from, this.to));
+    this._filterStatus$.next(this.filterStatus);
   }
 
   public clearTags(): void {
-    for (let i = this.selectedTags.length - 1; i >= 0; i--) {
-      this.remove(this.selectedTags[i])
+    for (let i = this.filterStatus.hashtags.length - 1; i >= 0; i--) {
+      this.remove(this.filterStatus.hashtags[i])
     }
   }
 }
