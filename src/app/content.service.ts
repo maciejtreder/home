@@ -19,11 +19,15 @@ export class ContentService {
   private url: string = '/assets/content/';
 
   public getWriting(): Observable<Post[]> {
-    return this.getFromTS<Post>(StateKeys.POSTS, 'writing');
+    return this.getFromTS<Post>(StateKeys.POSTS, 'writing').pipe(
+      map(entries => entries.sort((entry1, entry2) => entry2.date - entry1.date))
+    );
   }
 
   public getSpeaches(): Observable<Speech[]> {
-    return this.getFromTS<Speech>(StateKeys.SPEECHES, 'speaking');
+    return this.getFromTS<Speech>(StateKeys.SPEECHES, 'speaking').pipe(
+      map(entries => entries.sort((entry1, entry2) => entry2.date - entry1.date))
+    );
   }
 
   private getFromTS<T extends WithDate>(key: StateKey<T[]>, endpoint: string):Observable<T[]> {

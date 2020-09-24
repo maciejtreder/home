@@ -201,9 +201,8 @@ export class FilterComponent {
       this.filterStatus.video = params.video == "true";
       this.filterStatus.slides = params.slides == "true";
       this.filterStatus.hashtags = !!params.hashtags?this.filterStatus.hashtags.concat(params.hashtags):[];
-      this.filterStatus.start = !!this.filterStatus.start?this.filterStatus.start : 0;
-      this.filterStatus.size = !!this.filterStatus.size?this.filterStatus.size : 5;
-
+      this.filterStatus.start = !!params.start?parseInt(params.start) : 0;
+      this.filterStatus.size = !!params.size?parseInt(params.size) : 5;
 
       if (!!params.title || !!params.publisher || this.filterStatus.video || this.filterStatus.slides || this.filterStatus.hashtags.length > 0) {
         this.animateFilters();

@@ -69,7 +69,7 @@
         "video": "",
         "slides": "https://speakerdeck.com/maciejtreder/asynchronous-javascript-there-and-back-again",
         "keywords": ["javascript", "rxjs", "promises"],
-        "date": 1601942400
+        "date": 1589241600
     },
     {
         "title": "Boost your app with Angular Universal - make it SEO & CDN-friendly",
@@ -81,7 +81,7 @@
         "video": "https://www.youtube.com/watch?v=P70FbyQSAm4",
         "slides": "https://speakerdeck.com/maciejtreder/angular-universal-essentials",
         "keywords": ["javascript", "angular", "angular universal", "seo", "cdn", "performance"],
-        "date": 1601942400
+        "date": 1575936000
     },
     {
         "title": "Boost your app with Angular Universal - make it SEO & CDN-friendly",
@@ -268,7 +268,7 @@
         "title": "Observable trapped me in memory leak",
         "for": "NG Poland",
         "place": "Warsaw, Poland",
-        "description": "<p>Observables trapped me in memory leak...but thanks to design pattern, not only did I get out of it, but also learned how to manage them.</p>",
+        "description": "<p>Observables trapped me in memory leak...but thanks to design pattern, not only did I get out of it, but also learned how to manage them. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>",
         "pictureMain": "ngpoland2018.jpg",
         "picture": ["ngpoland2018.jpg"],
         "video": "https://www.youtube.com/watch?v=ItBcC8mJyj0",

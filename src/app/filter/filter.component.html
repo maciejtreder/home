@@ -10,8 +10,9 @@
     </div>
 
     <mat-paginator [length]="(filteredList$ | async)?.length"
-      [pageSize]="5"
+      [pageSize]="filterStatus.size"
       [pageSizeOptions]="[5,10,25]"
+      [pageIndex]="filterStatus.start / filterStatus.size"
       (page)="pageEvent($event)">
     </mat-paginator>
   </div>
