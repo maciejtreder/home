@@ -21,13 +21,13 @@ export class ContentServerService extends ContentService {
 
   public getWriting(): Observable<Post[]> {
     return this.getFromFile<Post>(StateKeys.POSTS, 'writing').pipe(
-      map(entries => entries.sort((entry1, entry2) => entry2.date - entry1.date))
+      map(entries => entries.sort((entry1, entry2) => entry2.date.getTime() - entry1.date.getTime()))
     );
   }
 
   public getSpeaches(): Observable<Speech[]> {
     return this.getFromFile<Speech>(StateKeys.SPEECHES, 'speaking').pipe(
-      map(entries => entries.sort((entry1, entry2) => entry2.date - entry1.date))
+      map(entries => entries.sort((entry1, entry2) => entry2.date.getTime() - entry1.date.getTime()))
     );
   }
 
