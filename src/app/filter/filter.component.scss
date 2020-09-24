@@ -61,3 +61,16 @@ mat-checkbox + mat-checkbox {
 button {
     border: 0;
 }
+
+span.filter {
+    background: url('../../assets/img/filter.svg');
+    width: 20px;
+    height: 18px;
+    margin-right: 7px;
+}
+
+button.close {
+    background: url('../../assets/img/close.svg');
+    width: 20px;
+    height: 20px;
+}

@@ -2,8 +2,7 @@
   <div class="up" >
     <div>
       <a  (click)="animateFilters()" >
-        <span class="material-icons folded" [@button]="buttonState">
-          filter_list
+        <span class="filter folded" [@button]="buttonState">
         </span>
         {{buttonState}} filters
       </a>
@@ -25,8 +24,7 @@
       <mat-form-field >
           <mat-label>title</mat-label>
           <input matInput type="text" formControlName="title" autocomplete="false">
-          <button mat-button *ngIf="filterForm.controls['title'].value" matSuffix mat-icon-button aria-label="Clear" (click)="filterForm.controls['title'].setValue('')">
-            <mat-icon>close</mat-icon>
+          <button class="close" mat-button *ngIf="filterForm.controls['title'].value" matSuffix mat-icon-button aria-label="Clear" (click)="filterForm.controls['title'].setValue('')">
           </button>
       </mat-form-field>
       <mat-form-field>
@@ -35,8 +33,7 @@
                   matInput
                   formControlName="publisher"
                   [matAutocomplete]="auto1">
-          <button mat-button *ngIf="filterForm.controls['publisher'].value" matSuffix mat-icon-button aria-label="Clear" (click)="filterForm.controls['publisher'].setValue('')">
-              <mat-icon>close</mat-icon>
+          <button class="close" mat-button *ngIf="filterForm.controls['publisher'].value" matSuffix mat-icon-button aria-label="Clear" (click)="filterForm.controls['publisher'].setValue('')">
           </button>
           <mat-autocomplete autoActiveFirstOption #auto1="matAutocomplete">
             <mat-option *ngFor="let option of filteredPublishers$ | async" [value]="option">
@@ -61,8 +58,7 @@
             formControlName="hashtags"
             [matAutocomplete]="auto2"
             [matChipInputFor]="chipList">
-            <button mat-button *ngIf="filterStatus.hashtags.length > 0" matSuffix mat-icon-button aria-label="Clear" (click)="clearTags()">
-              <mat-icon>close</mat-icon>
+            <button class="close" mat-button *ngIf="filterStatus.hashtags.length > 0" matSuffix mat-icon-button aria-label="Clear" (click)="clearTags()">
           </button>
         </mat-chip-list>
         <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="selectedTag($event)">
