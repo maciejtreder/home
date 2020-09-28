@@ -34,7 +34,9 @@ export class ContentService {
     if (this.ts.hasKey(key)) {
       return new Observable(observer => {
         setTimeout(() => {
-          observer.next(this.ts.get<T[]>(key, null));
+          let entries = this.ts.get<T[]>(key, null);
+          entries.forEach(entry => entry.date = new Date(entry.date))
+          observer.next(entries);
           observer.complete();
         }, 0);
       })
