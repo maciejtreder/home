@@ -1,5 +1,13 @@
 [
     {
+        "title": "Hello Deno",
+        "description": "<p>Deno is a new runtime environment for JavaScript and TypeScript. Deno founder Ryan Dahl, who was also the founding developer of Node.js, says Deno is intended to be a more modern version of Node.js.</p><p>When Node.js was first released, in 2009, JavaScript didn’t have the async-await mechanism, typed arrays, or the ECMAScript module system. At the time, Dahl recognized that an event loop would be an essential resource for server-side JavaScript and set to work on creating a runtime environment that included one.</p><p>By 2012, Dahl felt the primary goal of creating a user-friendly non-blocking framework had been achieved, with Node.js having support for multiple protocols, cross-platform support, a relatively stable API, and a growing ecosystem of external modules distributed through npm.</p><p>But over time it became apparent to Dahl that a number of design decisions, like the early removal of Promises, caused problems. Security, the GYP build system, and...</p>",
+        "url": "https://www.twilio.com/blog/hello-deno",
+        "date": 1603152000,
+        "keywords": ["javascript", "typescript", "deno"],
+        "for": "Twilio"
+    },
+    {
         "title": "Asynchronous JavaScript: Choosing the Right Asynchronous Tool",
         "description": "<p>Since its beginning as a primitive, unstandardized scripting language for web browsers, JavaScript has gained many features that better equip it for handling common programming tasks. Some of the most important improvements are in the area of handling asynchronous events like form submission, user interface interaction, and media management.</p><p>The growth of server-side JavaScript enabled by Node.js has substantially expanded the range of project types and business challenges JavaScript can successfully address, adding new requirements for asynchronous processing. The popularity of web services as a design paradigm and REST APIs as an interaction standard have both added to the scope of asynchronous tasks for the language.</p><p>The Node package management system, npm, makes it possible to easily integrate capabilities provided in open source libraries. Packages for asynchronous tasks have been some of the most successful of these, adding programming paradigms to JavaScript that were unimagined in the early days of...</p>",
         "url": "https://www.twilio.com/blog/asynchronous-javascript-choosing-the-right-asynchronous-tool",

@@ -6,9 +6,7 @@
         </span>
         {{buttonState}} filters
       </a>
-      
     </div>
-
     <mat-paginator [length]="(filteredList$ | async)?.length"
       [pageSize]="filterStatus.size"
       [pageSizeOptions]="[5,10,25]"

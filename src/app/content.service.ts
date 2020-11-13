@@ -7,6 +7,7 @@ import { Post } from 'src/model/post.model';
 import { map } from 'rxjs/operators';
 import { WithDate } from 'src/model/withdate.model';
 import { Speech } from 'src/model/speech.model';
+import { Course } from 'src/model/course.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,12 @@ export class ContentService {
 
   public getSpeaches(): Observable<Speech[]> {
     return this.getFromTS<Speech>(StateKeys.SPEECHES, 'speaking').pipe(
+      map(entries => entries.sort((entry1, entry2) => entry2.date.getTime() - entry1.date.getTime()))
+    );
+  }
+
+  public getCourses(): Observable<Course[]> {
+    return this.getFromTS<Course>(StateKeys.COURSES, 'teaching').pipe(
       map(entries => entries.sort((entry1, entry2) => entry2.date.getTime() - entry1.date.getTime()))
     );
   }

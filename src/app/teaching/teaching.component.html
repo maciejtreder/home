@@ -1,1 +1,16 @@
-Upcoming...
+<app-filter [source]="(courses | async)" (filterChange)="listRefined($event)" [selectedTag]="selectedTag$"></app-filter>
+
+<div class="entry" *ngFor="let course of display">
+    <div class="header">
+        <h3>{{course.for}}</h3>
+        <h4>{{course.title}}</h4>
+        <span class="date">{{course.date | date}}</span>
+    </div>
+    <img src="assets/img/teaching/{{course.pictureMain}}" />
+    <div class="about">
+        <div class="description" [innerHtml]="course.description"></div>
+        <div class="keywords">
+            <a *ngFor="let keyword of course.keywords" (click)="selectTag(keyword)" routerLink="/speaking" [queryParams]="{hashtags: keyword}">#{{keyword}}</a>
+        </div>
+    </div>
+</div>

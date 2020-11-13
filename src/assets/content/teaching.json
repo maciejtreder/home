@@ -1,0 +1,12 @@
+[
+    {
+        "title": "Guide to Angular Universal",
+        "description": "<p>In this course I'll show you how to enhance existing Angular application with Angular Universal, how to optimize its performance and what are Server-Side Rendering best practices. You'll see how to improve PageSpeed Insights score from 66 to 95 points!</p>",
+        "pictureMain": "universal_cours.jpg",
+        "picture": ["universal_cours.jpg"],
+        "url": "https://www.newline.co/courses/newline-guide-to-angular-universal",
+        "date": 1605052800,
+        "keywords": ["javascript", "nodejs", "angular", "seo", "security", "performance"],
+        "for": "Newline"
+    }
+]

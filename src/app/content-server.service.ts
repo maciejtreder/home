@@ -8,6 +8,7 @@ import { StateKeys } from 'src/model/state-keys';
 import { ContentService } from './content.service';
 import { WithDate } from 'src/model/withdate.model';
 import { Speech } from 'src/model/speech.model';
+import { Course } from 'src/model/course.model';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,12 @@ export class ContentServerService extends ContentService {
 
   public getSpeaches(): Observable<Speech[]> {
     return this.getFromFile<Speech>(StateKeys.SPEECHES, 'speaking').pipe(
+      map(entries => entries.sort((entry1, entry2) => entry2.date.getTime() - entry1.date.getTime()))
+    );
+  }
+
+  public getCourses(): Observable<Course[]> {
+    return this.getFromFile<Course>(StateKeys.COURSES, 'teaching').pipe(
       map(entries => entries.sort((entry1, entry2) => entry2.date.getTime() - entry1.date.getTime()))
     );
   }
